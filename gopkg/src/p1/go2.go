@@ -17,9 +17,6 @@ func CheckErr(err error) {
 		os.Exit(1)
 	}
 }
-func SocketClient(style, addr string) (link net.Conn, err error) {
-	return net.Dial(style, addr)
-}
 func Readtcp(conn net.Conn) ([]byte, error) {
 	defer conn.Close()
 	result := bytes.NewBuffer(nil)
