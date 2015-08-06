@@ -1,3 +1,4 @@
+package takeone;
 import java.awt.AWTException;
 import java.awt.Image;
 import java.awt.MouseInfo;
@@ -26,9 +27,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,8 +44,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 //[2014-10-16 06:00:00]开始时间：2014-10-16 06:00:00,发送到分布式服务器[http://10.1.1.57:8080/contract/dataTrans/insertEcgDate,设备号：1312506,合同号：06267029-3954-4c6c-a5b9-5b99c0990a41]开始...
 public class TakeOne {
 	private static  String POST_URL = "http://218.12.10.30:20007/contract/dataTrans/getOneDataPacks";
-//	private static  String GET_URL = "http://218.12.10.30:20007/contract/dataTrans/getOneDataPacks";
-	private static  String GET_URL = "http://apistore.baidu.com/microservice/weather?citypinyin=beijing";
+	private static  String GET_URL = "http://192.168.100.144:8088/doudou/upgrade/doDownLoad.htm?fileId=167";
+//	private static  String GET_URL = "http://192.168.100.144:8088/doudou/buzapp/appList.htm?sysTypeId=IS-DD2000&id=21C883353908594E51F052D8EC6AB0F1CF";
 	public static void main(String[] args) throws Exception{
 //		TakeZero();//将普通16进制的文本转换成byte文件；
 //		TakeTwo();//将16进制报文流读取出来并转换成byte数组；
@@ -52,7 +55,7 @@ public class TakeOne {
 //		TakeSix();//操作EXCEL对象——读取文件、sheet、以及cell的值；
 //		TakeSeven();//Java——Logger
 //		TakeEight();//将16进制报文流读取出来转换成一行格式,之后对文本进行按目标字符分割并输出Byte二维数组
-//		TakeNine(getAddress, SessionID);
+//		System.out.println(TakeNine(GET_URL, ""));//http_get普通网页
 //		TakeTen(GET_URL, GET_URL, GET_URL);
 //		TakeEleven();//打开指定路径程序；
 //		TakeTwelve();//打开NOTEPAD,并输输入文字;
@@ -63,84 +66,8 @@ public class TakeOne {
 //		TakeSeventeen();//鼠标操作;
 //		TakeEighteen();//显示鼠标的当前坐标值；
 //		TakeNighteen();//Socket/ServerSocket
-		String[] tmp = TakeTwenty("侯瑞华");// 获取目标字符串的HEX码(16进制)
-		for(int i = 0;i < tmp.length;i++){
-			System.out.println(tmp[i]);
-		}
-//		test1();
-	}
-	public static void test1(){
-		String		IPA		= "http://124.127.132.162:38060/health";
-		String		GetAddress = "http://124.127.132.162:38060/health/happData/indexForAll.html";
-		String[]	request	= new String[3];
-		String[]	content	= new String[3];
-		request[0]			= IPA+"/loginController/loginwin";
-		request[1]			= IPA+"/msg/getMsg";//getMsg;
-		request[2]			= IPA+"/happData/dataGridForAll";//getMsg;
-//		request[2]			= IPA+"/happData/dataGridForAll";//GetListOfOperationData;
-		content[0]			= "user_name=zyan&user_pwd=000000";
-		content[1]			= "id=ff8080814863e98c014863e98cf20000";
-		content[2]			= "userName=&sex=&c_virtualcardno=&c_mobiephone=&sort=&c_dataType=&page=1&rows=50";
-		try {
-//			OutputStreamWriter opsw = new OutputStreamWriter(new FileOutputStream("d:\\JKPT.txt"));
-			String[] tmp = TakeTen(request[0],content[0],"");
-//			System.out.println(tmp[0]);
-//			System.out.println(tmp[1]);
-//			System.out.println(TakeNine(GetAddress,tmp[1]));//HTTP_GETURL方法；.split(";")[0]
-			for(int i = 1;i < request.length;i++){
-				System.out.println((TakeTen(request[i], content[i],tmp[1])[0]).length());
-				System.out.println(tmp[2]);
-			}
-//			opsw.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	public  byte[] DataPro(int Hbp,int Lbp,int BPTO,int SP,int SPTO,int BST,int BS,int BSTO){
-		byte[] highBP			= new byte[2];
-		byte[] lowBP			= new byte[2];
-		byte[] bpTimeOffset		= new byte[3];
-		byte[] spo2				= new byte[1];
-		byte[] spo2TimeOffset	= new byte[3];
-		byte[] bloodSugarType	= new byte[1];
-		byte[] bloodSugar		= new byte[2];
-		byte[] bloodTimeOffset	= new byte[3];
-		byte[] reserved			= new byte[1];
-		byte[] tmp				= new byte[18];
-			highBP[0]			=	(byte) Hbp;
-			lowBP[0]			=	(byte) Lbp;
-//			bpTimeOffset[0]		=	BPTO);
-			spo2[0]				=	(byte) SP;
-//			spo2TimeOffset[0]	=	SPTO;
-			bloodSugarType[0]	=	(byte) BST;
-			bloodSugar[0]		=	(byte) BS;
-//			bloodTimeOffset[0]	=	BSTO;
-			
-//			highBP[0]			=	(byte)Integer.parseInt(Hbp+"",16);
-//			lowBP[0]			=	(byte)Integer.parseInt(Lbp+"",16);
-////			bpTimeOffset[0]		=	(byte)Integer.parseInt(BPTO+"",16);
-//			spo2[0]				=	(byte)Integer.parseInt(SP+"",16);
-////			spo2TimeOffset[0]	=	(byte)Integer.parseInt(SPTO+"",16);
-//			bloodSugarType[0]	=	(byte)Integer.parseInt(BST+"",16);
-//			bloodSugar[0]		=	(byte)Integer.parseInt(BS+"",16);
-////			bloodTimeOffset[0]	=	(byte)Integer.parseInt(BSTO+"",16);
-		ByteArrayOutputStream res = new ByteArrayOutputStream(18);
-		
-		try {
-			res.write(highBP);
-			res.write(lowBP);
-			res.write(bpTimeOffset);
-			res.write(spo2);
-			res.write(spo2TimeOffset);
-			res.write(bloodSugarType);
-			res.write(bloodSugar);
-			res.write(bloodTimeOffset);
-			res.write(reserved);
-			tmp = res.toByteArray();
-			res.close();
-		} catch (IOException e) {e.printStackTrace();}
-		
-		return tmp;
+//		String[] tmp = TakeTwenty("侯瑞华");// 获取目标字符串的HEX码(16进制)
+		System.out.println(TakeTwentyOne(GET_URL, "d:\\httpdownload"));//http下载文件
 	}
 	@SuppressWarnings("deprecation")
 	public static void TakeZero() {
@@ -468,5 +395,40 @@ public class TakeOne {
 			}
 		}
 		return res;
+	}
+	@SuppressWarnings("resource")
+	public static boolean TakeTwentyOne(String httpUrl, String saveFile){
+		// 下载网络文件  
+	       int bytesum = 0;  
+	       int byteread = 0;  
+	  
+	       URL url = null;  
+	    try {  
+	        url = new URL(httpUrl);  
+	    } catch (MalformedURLException e1) {  
+	        // TODO Auto-generated catch block  
+	        e1.printStackTrace();  
+	        return false;  
+	    }  
+	  
+	       try {  
+	           URLConnection conn = url.openConnection();  
+	           InputStream inStream = conn.getInputStream();  
+	           FileOutputStream twentyfs = new FileOutputStream(saveFile);  
+	  
+	           byte[] buffer = new byte[1204];  
+	           while ((byteread = inStream.read(buffer)) != -1) {  
+	               bytesum += byteread;  
+	               System.out.println(bytesum);  
+	               twentyfs.write(buffer, 0, byteread);  
+	           }  
+	           return true;  
+	       } catch (FileNotFoundException e) {  
+	           e.printStackTrace();  
+	           return false;  
+	       } catch (IOException e) {  
+	           e.printStackTrace();  
+	           return false;  
+	       }
 	}
 }
