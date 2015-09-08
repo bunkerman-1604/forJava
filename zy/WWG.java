@@ -1,5 +1,8 @@
 package backage;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Calendar;
 
 public class WWG{
@@ -24,11 +27,26 @@ public class WWG{
 		this.a[5] = BG(a,b,c)[1];
 		this.bd = c;
 	}
+	public String PT(BG b,int i){
+		return b.BPT(2-i%3);
+	}
 	public String DY(BG b,int i){
-		return b.BIO(2-i%3);
+		return b.BDY(2-i%3);
 	}
 	public String Print(){
 		String res = "";
+		for(int i = 0;i < 6;i++){
+			res = res + PT(this.a[0+i/3],i);
+			res = res + PT(this.a[2+i/3],i);
+			res = res + PT(this.a[4+i/3],i);
+			res = res + PT(this.a[6+i/3],i);
+			res = res + PT(this.a[8+i/3],i);
+			res = res + "\r\n";
+		}
+		return res;
+	}
+	public void IO(String path){
+		String	res	=	"";
 		for(int i = 0;i < 6;i++){
 			res = res + DY(this.a[0+i/3],i);
 			res = res + DY(this.a[2+i/3],i);
@@ -37,9 +55,13 @@ public class WWG{
 			res = res + DY(this.a[8+i/3],i);
 			res = res + "\r\n";
 		}
-		return res;
+		try {
+			OutputStreamWriter	osw	=	new OutputStreamWriter(new FileOutputStream(path));
+			osw.write(res);
+			osw.close();
+		} catch (IOException e) {e.printStackTrace();
+		}
 	}
-	public void IO(String path){}
 	public BG getBG(int i){
 		if(i>=0 && i<10){
 			return this.a[i];
@@ -137,7 +159,7 @@ public class WWG{
 			bg = new BG(2);
 		}else{
 			bg = null;
-			System.out.println("CGÒì³£");
+			System.out.println("CGå¼‚å¸¸");
 		}
 		return bg;
 	}
@@ -145,7 +167,7 @@ public class WWG{
 class BG{
 	private YY[] yy = new YY[3];
 	private int BGName;
-	public BG(int a){//ÏÂÖÐÉÏ
+	public BG(int a){//ä¸‹ä¸­ä¸Š
 		if(a%8 == 0){
 			this.yy[0] = new YY(0);this.yy[1] = new YY(0);this.yy[2] = new YY(0);
 		}else if(a%8 == 1){
@@ -200,14 +222,14 @@ class BG{
 		if(i >=0 && i<=2){
 			this.yy[i].FY(j%3);
 		}else{
-			System.out.println("setBGÊ§°Ü²ÎÊý"+i);
+			System.out.println("setBGå¤±è´¥å‚æ•°"+i);
 		}
 	}
 	public int getYY(int i){
 		if(i >=0 && i<=2){
 			return this.yy[i].QY();
 		}else{
-			System.out.println("getBGÊ§°Ü²ÎÊý"+i);
+			System.out.println("getBGå¤±è´¥å‚æ•°"+i);
 			return -1;
 		}
 	}
@@ -215,14 +237,14 @@ class BG{
 		if(i >=0 && i<=2){
 			this.yy[i].BY();
 		}else{
-			System.out.println("BBGÊ§°Ü²ÎÊý"+i);
+			System.out.println("BBGå¤±è´¥å‚æ•°"+i);
 		}
 	}
-	public String BGP(int b){
+	public String BDY(int b){
 		return this.yy[b%3].DY();
 	}
-	public String BIO(int b){
-		return this.yy[b%3].IO();
+	public String BPT(int b){
+		return this.yy[b%3].PT();
 	}
 }
 class YY{
@@ -241,16 +263,16 @@ class YY{
 	}
 	public String DY(){
 		if(this.a%2==1){
-			return "©¤©¤©¤ ";
+			return "é˜³é˜³é˜³	";
 		}else{
-			return "©¤ ©¤ ";
+			return "é˜´  é˜´	";
 		}
 	}
-	public String IO(){
+	public String PT(){
 		if(this.a%2==1){
-			return "©¤©¤©¤ ";
+			return "é˜³é˜³é˜³	";
 		}else{
-			return "©¤  ©¤ ";
+			return "é˜´    é˜´	";
 		}
 	}
 }
