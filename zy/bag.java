@@ -12,7 +12,7 @@ public class bag {
 		this.tmp1 = new SC(this.logtime);
 	}
 	public String PrintWWG() {
-		String pres =  "记录时间:" + this.logtime + "\r\n";
+		String pres =  "璁板綍鏃堕棿:" + this.logtime + "\r\n";
 		pres = pres + this.tar.Print();
 		pres = pres + NJGONG(this.tar);
 		pres = pres + this.tmp1.DayYun() ;
@@ -21,7 +21,7 @@ public class bag {
 		
 	}
 	public String DaYinWWG() {
-		String pres =  "记录时间:" + this.logtime + "\r\n";
+		String pres =  "璁板綍鏃堕棿:" + this.logtime + "\r\n";
 		pres = pres + this.tar.IO();
 		pres = pres + NJGONG(this.tar);
 		pres = pres + this.tmp1.DayYun() ;
