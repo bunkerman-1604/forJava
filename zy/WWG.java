@@ -1,14 +1,14 @@
 package backage;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.util.Calendar;
-
 public class WWG{
 	private BG[] a;
+	public BG[] getA() {
+		return a;
+	}
+	public void setA(BG[] a) {
+		this.a = a;
+	}
 	private int[] bd;
-	Calendar c1 = Calendar.getInstance();
 	public WWG(int a,int b,int c){
 		TG(a,b);
 		this.a[4] = BG(a,b,c)[0];
@@ -27,12 +27,6 @@ public class WWG{
 		this.a[5] = BG(a,b,c)[1];
 		this.bd = c;
 	}
-	public String PT(BG b,int i){
-		return b.BPT(2-i%3);
-	}
-	public String DY(BG b,int i){
-		return b.BDY(2-i%3);
-	}
 	public String Print(){
 		String res = "";
 		for(int i = 0;i < 6;i++){
@@ -45,7 +39,7 @@ public class WWG{
 		}
 		return res;
 	}
-	public void IO(String path){
+	public String IO(){
 		String	res	=	"";
 		for(int i = 0;i < 6;i++){
 			res = res + DY(this.a[0+i/3],i);
@@ -55,12 +49,7 @@ public class WWG{
 			res = res + DY(this.a[8+i/3],i);
 			res = res + "\r\n";
 		}
-		try {
-			OutputStreamWriter	osw	=	new OutputStreamWriter(new FileOutputStream(path));
-			osw.write(res);
-			osw.close();
-		} catch (IOException e) {e.printStackTrace();
-		}
+		return res;
 	}
 	public BG getBG(int i){
 		if(i>=0 && i<10){
@@ -72,6 +61,12 @@ public class WWG{
 	}
 	public int[] getBD(){
 		return this.bd;
+	}
+	private String PT(BG b,int i){
+		return b.BPT(2-i%3);
+	}
+	private String DY(BG b,int i){
+		return b.BDY(2-i%3);
 	}
 	private void TG(int a,int b){
 		this.a = new BG[10];
@@ -114,14 +109,23 @@ public class WWG{
 	}
 	private BG[] HHG(BG bg1, BG bg2){
 		BG[] bg = new BG[2];
+		YY[]	yy0	=	new YY[3]	,	yy1	=	new YY[3];
+		YY[]	y0	=	bg1.getYy()	,	y1	=	bg2.getYy();
 		bg[0] = new BG(0);
 		bg[1] = new BG(1);
-		bg[0].setYY(2, bg1.getYY(1));
-		bg[0].setYY(1, bg1.getYY(0));
-		bg[0].setYY(0, bg2.getYY(2));
-		bg[1].setYY(2, bg1.getYY(0));
-		bg[1].setYY(1, bg2.getYY(2));
-		bg[1].setYY(0, bg2.getYY(1));
+		for(int i = 0;i < 3;i++) {
+			yy0[i]	=	new YY(i);
+			yy1[i]	=	new YY(i);
+		}
+		yy0[2].setYao(y0[1].getYao());
+		yy0[1].setYao(y0[0].getYao());
+		yy0[0].setYao(y1[2].getYao());
+		yy1[2].setYao(y0[0].getYao());
+		yy1[1].setYao(y1[2].getYao());
+		yy1[0].setYao(y1[1].getYao());
+		bg[0].setYy(yy0);
+		bg[1].setYy(yy1);
+		
 		return bg;
 	}
 	private BG ZG(int i){
@@ -159,7 +163,7 @@ public class WWG{
 			bg = new BG(2);
 		}else{
 			bg = null;
-			System.out.println("CGå¼‚å¸¸");
+			System.out.println("CGÒì³£");
 		}
 		return bg;
 	}
@@ -167,49 +171,45 @@ public class WWG{
 class BG{
 	private YY[] yy = new YY[3];
 	private int BGName;
-	public BG(int a){//ä¸‹ä¸­ä¸Š
-		if(a%8 == 0){
-			this.yy[0] = new YY(0);this.yy[1] = new YY(0);this.yy[2] = new YY(0);
-		}else if(a%8 == 1){
-			this.yy[0] = new YY(1);this.yy[1] = new YY(1);this.yy[2] = new YY(1);
-		}else if(a%8 == 2){
-			this.yy[0] = new YY(1);this.yy[1] = new YY(1);this.yy[2] = new YY(0);
-		}else if(a%8 == 3){
-			this.yy[0] = new YY(1);this.yy[1] = new YY(0);this.yy[2] = new YY(1);
-		}else if(a%8 == 4){
-			this.yy[0] = new YY(1);this.yy[1] = new YY(0);this.yy[2] = new YY(0);
-		}else if(a%8 == 5){
-			this.yy[0] = new YY(0);this.yy[1] = new YY(1);this.yy[2] = new YY(1);
-		}else if(a%8 == 6){
-			this.yy[0] = new YY(0);this.yy[1] = new YY(1);this.yy[2] = new YY(0);
-		}else if(a%8 == 7){
-			this.yy[0] = new YY(0);this.yy[1] = new YY(0);this.yy[2] = new YY(1);
+	public YY[] getYy() {
+		return yy;
+	}
+	public void setYy(YY[] yy) {
+		this.yy = yy;
+	}
+	public BG(int aa){//ÏÂÖÐÉÏ
+		int	a	=	Math.abs(aa);
+		for(int i = 0;i < 3;i++){
+			this.yy[i]	=	new YY(0);
 		}
+		this.yy[0].setYao(((8-a%8)/4)%2);
+		this.yy[1].setYao(((a%8+1)/2)%2);
+		this.yy[2].setYao((a%8)%2);
 	}
 	public int getBGName(){
-		if(this.yy[0].QY()%2 == 0){
-			if(this.yy[1].QY()%2 == 0){
-				if(this.yy[2].QY()%2 == 0){
+		if(this.yy[0].getYao()%2 == 0){
+			if(this.yy[1].getYao()%2 == 0){
+				if(this.yy[2].getYao()%2 == 0){
 					this.BGName = 8;
 				}else{
 					this.BGName = 7;
 				}
 			}else{
-				if(this.yy[2].QY()%2 == 0){
+				if(this.yy[2].getYao()%2 == 0){
 					this.BGName = 6;
 				}else{
 					this.BGName = 5;
 				}
 			}
 		}else{
-			if(this.yy[1].QY()%2 == 0){
-				if(this.yy[2].QY()%2 == 0){
+			if(this.yy[1].getYao()%2 == 0){
+				if(this.yy[2].getYao()%2 == 0){
 					this.BGName = 4;
 				}else{
 					this.BGName = 3;
 				}
 			}else{
-				if(this.yy[2].QY()%2 == 0){
+				if(this.yy[2].getYao()%2 == 0){
 					this.BGName = 2;
 				}else{
 					this.BGName = 1;
@@ -218,26 +218,11 @@ class BG{
 		}
 		return this.BGName;
 	}
-	public void setYY(int i,int j){
-		if(i >=0 && i<=2){
-			this.yy[i].FY(j%3);
-		}else{
-			System.out.println("setBGå¤±è´¥å‚æ•°"+i);
-		}
-	}
-	public int getYY(int i){
-		if(i >=0 && i<=2){
-			return this.yy[i].QY();
-		}else{
-			System.out.println("getBGå¤±è´¥å‚æ•°"+i);
-			return -1;
-		}
-	}
 	public void BYY(int i){
 		if(i >=0 && i<=2){
 			this.yy[i].BY();
 		}else{
-			System.out.println("BBGå¤±è´¥å‚æ•°"+i);
+			System.out.println("BBGÊ§°Ü²ÎÊý"+i);
 		}
 	}
 	public String BDY(int b){
@@ -248,31 +233,56 @@ class BG{
 	}
 }
 class YY{
-	private int a;
+	private int yao;
+	private String PTyang = "©¤©¤©¤ ",PTyin = "©¤ ©¤ ",IOyang = "©¤©¤©¤ ",IOyin = "©¤  ©¤ ";
+	public int getYao() {
+		return yao;
+	}
+	public void setYao(int yao) {
+		this.yao = Math.abs(yao)%2;
+	}
+	public String getPTyang() {
+		return PTyang;
+	}
+	public void setPTyang(String pTyang) {
+		PTyang = pTyang;
+	}
+	public String getPTyin() {
+		return PTyin;
+	}
+	public void setPTyin(String pTyin) {
+		PTyin = pTyin;
+	}
+	public String getIOyang() {
+		return IOyang;
+	}
+	public void setIOyang(String iOyang) {
+		IOyang = iOyang;
+	}
+	public String getIOyin() {
+		return IOyin;
+	}
+	public void setIOyin(String iOyin) {
+		IOyin = iOyin;
+	}
 	public YY(int a){
-		this.a = Math.abs(a);
-	}
-	public void FY(int i){
-		this.a = i;
-	}
-	public int QY(){
-		return this.a;
+		setYao(Math.abs(a)%2);
 	}
 	public void BY(){
-		this.a++;
+		setYao(getYao()+1);
 	}
 	public String DY(){
-		if(this.a%2==1){
-			return "é˜³é˜³é˜³	";
+		if(getYao()%2==1){
+			return getIOyang();
 		}else{
-			return "é˜´  é˜´	";
+			return getIOyin();
 		}
 	}
 	public String PT(){
-		if(this.a%2==1){
-			return "é˜³é˜³é˜³	";
+		if(getYao()%2==1){
+			return getPTyang();
 		}else{
-			return "é˜´    é˜´	";
+			return getPTyin();
 		}
 	}
 }

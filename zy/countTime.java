@@ -4,8 +4,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class countTime{
-    private int[] ry={31,29,31,30,31,30,31,31,30,31,30,31};
-    private int[] fry={31,28,31,30,31,30,31,31,30,31,30,31};
+    private static int[] ry={31,29,31,30,31,30,31,31,30,31,30,31};
+    private static int[] fry={31,28,31,30,31,30,31,31,30,31,30,31};
     private String t1,t2;
     private Pattern p = Pattern.compile("\\d{4}(\\D\\d{1,2}){2,3}$");
     public countTime(String d1,String d2){
@@ -67,13 +67,13 @@ public class countTime{
 		res = res + 366;
     	if(i == 0){//去除firstYeard多的
     		for(int j = 0;j < temp4-1;j++){
-    			res = res - this.ry[j];
+    			res = res - ry[j];
     		}
     		res = res - temp6;
     	}
     	if(temp2+i == temp1){//去除lastYear多的
         	for(int j = temp3-1;j < 12;j++){
-        		res = res - this.ry[j];
+        		res = res - ry[j];
         	}
         	res = res + temp5;
         }
@@ -84,16 +84,75 @@ public class countTime{
 		res = res + 365;
     	if(i == 0){//去除firstYeard多的
     		for(int j = 0;j < temp4-1;j++){
-    			res = res - this.fry[j];
+    			res = res - fry[j];
     		}
     		res = res - temp6;
     	}
     	if(temp2+i == temp1){//去除lastYear多的
         	for(int j = temp3-1;j < 12;j++){
-        		res = res - this.fry[j];
+        		res = res - fry[j];
         	}
         	res = res + temp5;
         }
 		return res;
+	}
+	public static int JQ(int parseInt, int i) {
+		int firstDay = 0;
+		if(i == 1){
+			firstDay = (int) (((parseInt-1)*0.2422+4.475)-((parseInt-1)/4-15));
+			if((parseInt-1)%4 == 0){
+				for(int j = 2;j < 13;j++){
+					if(j == 5){
+						firstDay = firstDay + 320/10- ry[j-1];
+					}else if(j>5 && j<8){
+						firstDay = firstDay + 319/10- ry[j-1];
+					}else if(j == 8){
+						firstDay = firstDay + 320/10- ry[j-1];
+					}else{
+						firstDay = firstDay + 304/10- ry[j-1];
+					}
+				}
+			}else{
+				for(int j = 2;j < i;j++){
+					if(j == 5){
+						firstDay = firstDay + 320/10- fry[j-1];
+					}else if(j>5 && j<8){
+						firstDay = firstDay + 319/10- fry[j-1];
+					}else if(j == 8){
+						firstDay = firstDay + 320/10- fry[j-1];
+					}else{
+						firstDay = firstDay + 304/10- fry[j-1];
+					}
+				}
+			}
+		}else{
+			firstDay = (int) ((parseInt*0.2422+4.475)-(parseInt/4-15));
+			if(parseInt%4 == 0){
+				for(int j = 2;j < i;j++){
+					if(j == 5){
+						firstDay = firstDay + 320/10- ry[j-1];
+					}else if(j>5 && j<8){
+						firstDay = firstDay + 319/10- ry[j-1];
+					}else if(j == 8){
+						firstDay = firstDay + 320/10- ry[j-1];
+					}else{
+						firstDay = firstDay + 304/10- ry[j-1];
+					}
+				}
+			}else{
+				for(int j = 2;j < i;j++){
+					if(j == 5){
+						firstDay = firstDay + 320/10- fry[j-1];
+					}else if(j>5 && j<8){
+						firstDay = firstDay + 319/10- fry[j-1];
+					}else if(j == 8){
+						firstDay = firstDay + 320/10- fry[j-1];
+					}else{
+						firstDay = firstDay + 304/10- fry[j-1];
+					}
+				}
+			}
+		}
+		return firstDay;
 	}
 }

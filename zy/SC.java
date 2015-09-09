@@ -53,7 +53,146 @@ public class SC{
 		}
 		return res;
 	}
-	public String gzch(){
+	public String DYun(SC s1,int sex) {
+    	String pres = "大运流年情况:\r\n";
+		int[] tgdz = (int[]) s1.DYLN(sex%2).get(0);
+		String[] res = (String[]) s1.DYLN(sex%2).get(1);
+		int[] stg= s1.getTG();
+		int[] sdz= s1.getDZ();
+		int[] TG = new int[5];
+		int[] DZ = new int[5];
+		for(int i = 0;i < 4;i++){
+			TG[i] = stg[i];
+			DZ[i] = sdz[i];
+		}
+		for(int j = 0;j < res.length;j++){
+			TG[4] = tgdz[2*j];
+			DZ[4] = tgdz[2*j+1];
+			SC sres = new SC(TG,DZ);
+			pres = pres + (j+1)*10+"---------"+res[j]+":\r\n" + sres.DayYun() + sres.WXN();
+		}
+		return pres;
+	}
+	public String DayYun() {
+		String[] temp0 = getBZ();
+		String[] temp1 = tgch();
+		String[] temp2 = dzch();
+		String[] temp3 = dzcg().split("-");
+		String	 res = "天干地支:\r\n";
+		for(int i = 0;i < temp0.length;i++){
+			if(i == 4){
+				res = res + "\r\n";
+			}
+			res = res + temp0[i].replaceAll(" ", "") +"  ";
+		}
+		res = res+"\r\n天干冲合:\r\n";
+		for(int i = 0;i <temp1.length;i++){
+			if(temp1[i].length() > 3){
+				res = res + temp1[i] +"  \r\n";
+			}
+		}
+		res = res+"地支冲合:\r\n";
+		for(int i = 0;i < temp2.length;i++){
+			if(temp2[i].length() > 5){
+				res = res + temp2[i] +"  \r\n";
+			}
+		}
+		res = res+"干支冲合:\r\n"+gzch();
+		res = res+"地支藏干:\r\n";
+		if(temp3[0] != null){
+			res = res + "正气:"+temp3[0]+"\r\n";
+		}
+		if(temp3[1] != null){
+			res = res + "中气:"+temp3[1]+"\r\n";
+		}
+		if(temp3[2] != null){
+			res = res + "余气:"+temp3[2]+"\r\n";
+		}
+		return res;
+	} 
+	public String WXN() {
+		WX wx = new WX(this);
+		String res = "十神状况:\r\n";
+		String[] res1 = wx.getRes();
+		String[] res2 = wx.getLQ();
+		for(int j = 0;j < 2;j++){
+			for(int i = res2.length-1;i > -1;i--){
+				if((i+j)%2 == 0){
+					res = res + res2[i];
+				}
+			}
+			res = res + "\r\n";
+		}
+		res = res +"五行状况:\r\n";
+		for(int j = 0;j < 2;j++){
+			for(int i = res1.length-1;i > -1;i--){
+				if((i+j)%2 == 0){
+					res = res + res1[i];
+				}
+			}
+			res = res + "\r\n";
+		}
+		res = res + "五行数量:\r\n";
+		res = res + wx.printWX();
+		return res;
+	}
+	private String[] tgch(){
+		String[] temp = new String[2];//SKH
+		String res3 = "XC";
+		String res4 = "WH";
+		short[] cc = new short[4];
+		short[] hh = new short[5];
+		String[] XC = {" 甲木庚金为相冲"," 乙木辛金为相冲"," 丙火壬水为相冲"," 丁火癸水为相冲"};//1-7,2-8,3-9,4-0
+		String[] WH = {" 甲木己土化合土"," 乙木庚金化合金"," 丙火辛金化合水"," 丁火壬水化合木"," 戊土癸水化合火"};//1-6,2-7,3-8,4-9,5-0
+		for(int i = 0;i < this.tg.length;i++){
+			for(int j = 0;j < this.tg.length;j++){//he
+				if(this.tg[i] < this.tg[j]){//XC
+					if(this.tg[j] == (this.tg[i]+6)%10){
+						if(this.tg[i]+this.tg[j] == this.tg[i]+8){
+							cc[(this.tg[i]+this.tg[j]-8)/2]++;
+						}
+					}else if(this.tg[i]+this.tg[j] == 4 && (this.tg[i] == 0||this.tg[j] == 0)){
+						cc[3]++;
+					}
+				}else{
+					if(this.tg[i] == (this.tg[j]+6)%10){
+						if(this.tg[i]+this.tg[j] == this.tg[j]+8){
+							cc[(this.tg[i]+this.tg[j]-8)/2]++;
+						}
+					}else if(this.tg[i]+this.tg[j] == 4 && (this.tg[i] == 0||this.tg[j] == 0)){
+						cc[3]++;
+					}
+				}
+				if(this.tg[i] == (this.tg[j]+5)%10){//WH
+					hh[(this.tg[i]+4)%5]++;
+				}
+			}
+		}
+		for(int i = 0;i < 4;i++){
+			if(cc[i] != 0){
+				res3 = res3+"@"+cc[i]/2+"个"+XC[i];
+			}
+		}
+		for(int i = 0;i < 5;i++){
+			if(hh[i] != 0){
+				res4 = res4+"@"+hh[i]/2+"个"+WH[i];
+			}
+		}
+		temp[0] = res3.substring(2);
+		temp[1] = res4.substring(2);
+		return temp;
+	}
+	private String[] dzch() {
+		String[] temp = new String[6];//SKH
+		temp[0] = liu(this.dz).split("-")[0];
+		temp[1] = liu(this.dz).split("-")[1];
+		temp[2] = liu(this.dz).split("-")[2];
+		temp[3] = sanXN(this.dz);
+		temp[4] = sanHH(this.dz).split("-")[0];
+		temp[5] = sanHH(this.dz).split("-")[1];
+		return temp;
+	}
+	private String gzch(){
 		String res1 = "CH";
 		short[] ch = new short[9];
 		String[] c = {"甲午","乙巳","丙戌","丁亥","戊子","己亥","庚辰","辛巳","壬午"};//g1-z7;g2-z6;g3-z11;g4-z0;g5-z1;g6-z0;g7-z5;g8-z6;g9-z7;
@@ -100,63 +239,7 @@ public class SC{
 		}
 		return res1.substring(2)+" ";
 	}
-	public String[] tgch(){
-		String[] temp = new String[2];//SKH
-		String res3 = "XC";
-		String res4 = "WH";
-		short[] cc = new short[4];
-		short[] hh = new short[5];
-		String[] XC = {" 甲木庚金为相冲"," 乙木辛金为相冲"," 丙火壬水为相冲"," 丁火癸水为相冲"};//1-7,2-8,3-9,4-0
-		String[] WH = {" 甲木己土化合土"," 乙木庚金化合金"," 丙火辛金化合水"," 丁火壬水化合木"," 戊土癸水化合火"};//1-6,2-7,3-8,4-9,5-0
-		for(int i = 0;i < this.tg.length;i++){
-			for(int j = 0;j < this.tg.length;j++){//he
-				if(this.tg[i] < this.tg[j]){//XC
-					if(this.tg[j] == (this.tg[i]+6)%10){
-						if(this.tg[i]+this.tg[j] == this.tg[i]+8){
-							cc[(this.tg[i]+this.tg[j]-8)/2]++;
-						}
-					}else if(this.tg[i]+this.tg[j] == 4 && (this.tg[i] == 0||this.tg[j] == 0)){
-						cc[3]++;
-					}
-				}else{
-					if(this.tg[i] == (this.tg[j]+6)%10){
-						if(this.tg[i]+this.tg[j] == this.tg[j]+8){
-							cc[(this.tg[i]+this.tg[j]-8)/2]++;
-						}
-					}else if(this.tg[i]+this.tg[j] == 4 && (this.tg[i] == 0||this.tg[j] == 0)){
-						cc[3]++;
-					}
-				}
-				if(this.tg[i] == (this.tg[j]+5)%10){//WH
-					hh[(this.tg[i]+4)%5]++;
-				}
-			}
-		}
-		for(int i = 0;i < 4;i++){
-			if(cc[i] != 0){
-				res3 = res3+"@"+cc[i]/2+"个"+XC[i];
-			}
-		}
-		for(int i = 0;i < 5;i++){
-			if(hh[i] != 0){
-				res4 = res4+"@"+hh[i]/2+"个"+WH[i];
-			}
-		}
-		temp[0] = res3.substring(2);
-		temp[1] = res4.substring(2);
-		return temp;
-	}
-	public String[] dzch() {
-		String[] temp = new String[6];//SKH
-		temp[0] = liu(this.dz).split("-")[0];
-		temp[1] = liu(this.dz).split("-")[1];
-		temp[2] = liu(this.dz).split("-")[2];
-		temp[3] = sanXN(this.dz);
-		temp[4] = sanHH(this.dz).split("-")[0];
-		temp[5] = sanHH(this.dz).split("-")[1];
-		return temp;
-	}
-	public String dzcg(){
+	private String dzcg(){
 		String res1 = "zq";
 		String res2 = "gq";
 		String res3 = "yq";
@@ -228,7 +311,7 @@ public class SC{
 		return res1.substring(2)+"-"+res2.substring(2)+"-"+res3.substring(2)+" ";
 	}
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public ArrayList DYLN(int sex){
+	private ArrayList DYLN(int sex){
 		ArrayList res = new ArrayList();
 		int[] res0 = new int[16];
 		String[] res1 = new String[8];
@@ -475,7 +558,7 @@ public class SC{
 						res[i] = (NYS(res[i-1])+Integer.parseInt(timeSC[i])-2)%10;
 					}
 				}else if(i == 2){//R
-					if(Integer.parseInt(timeSC[i]) < JQ(Integer.parseInt(timeSC[0]),Integer.parseInt(timeSC[1]))){
+					if(Integer.parseInt(timeSC[i]) < countTime.JQ(Integer.parseInt(timeSC[0]),Integer.parseInt(timeSC[1]))){
 						if(Integer.parseInt(timeSC[i-1]) == 1){
 							res[i-1] = (NYS(res[i-2])+Integer.parseInt(timeSC[i-1])-1)%10;
 						}else{
@@ -504,7 +587,7 @@ public class SC{
 					}
 					res[i] = (Integer.parseInt(timeSC[i])+1)%12;
 				}else if(i == 2){//R
-					if(Integer.parseInt(timeSC[i]) < JQ(Integer.parseInt(timeSC[0]),Integer.parseInt(timeSC[1]))){
+					if(Integer.parseInt(timeSC[i]) < countTime.JQ(Integer.parseInt(timeSC[0]),Integer.parseInt(timeSC[1]))){
 						res[i-1] = (Integer.parseInt(timeSC[i-1]))%12;
 						if(Integer.parseInt(timeSC[i-1]) == 2){
 							res[i-2] = (res[i-2]+11)%12;
@@ -519,68 +602,6 @@ public class SC{
 			}
 		}
 		return res;
-	}
-	
-	private int JQ(int parseInt, int i) {
-		int firstDay = 0;
-		int[] fry = {31,28,31,30,31,30,31,31,30,31,30,31};
-		int[] ry = {31,29,31,30,31,30,31,31,30,31,30,31};
-		if(i == 1){
-			firstDay = (int) (((parseInt-1)*0.2422+4.475)-((parseInt-1)/4-15));
-			if((parseInt-1)%4 == 0){
-				for(int j = 2;j < 13;j++){
-					if(j == 5){
-						firstDay = firstDay + 320/10- ry[j-1];
-					}else if(j>5 && j<8){
-						firstDay = firstDay + 319/10- ry[j-1];
-					}else if(j == 8){
-						firstDay = firstDay + 320/10- ry[j-1];
-					}else{
-						firstDay = firstDay + 304/10- ry[j-1];
-					}
-				}
-			}else{
-				for(int j = 2;j < i;j++){
-					if(j == 5){
-						firstDay = firstDay + 320/10- fry[j-1];
-					}else if(j>5 && j<8){
-						firstDay = firstDay + 319/10- fry[j-1];
-					}else if(j == 8){
-						firstDay = firstDay + 320/10- fry[j-1];
-					}else{
-						firstDay = firstDay + 304/10- fry[j-1];
-					}
-				}
-			}
-		}else{
-			firstDay = (int) ((parseInt*0.2422+4.475)-(parseInt/4-15));
-			if(parseInt%4 == 0){
-				for(int j = 2;j < i;j++){
-					if(j == 5){
-						firstDay = firstDay + 320/10- ry[j-1];
-					}else if(j>5 && j<8){
-						firstDay = firstDay + 319/10- ry[j-1];
-					}else if(j == 8){
-						firstDay = firstDay + 320/10- ry[j-1];
-					}else{
-						firstDay = firstDay + 304/10- ry[j-1];
-					}
-				}
-			}else{
-				for(int j = 2;j < i;j++){
-					if(j == 5){
-						firstDay = firstDay + 320/10- fry[j-1];
-					}else if(j>5 && j<8){
-						firstDay = firstDay + 319/10- fry[j-1];
-					}else if(j == 8){
-						firstDay = firstDay + 320/10- fry[j-1];
-					}else{
-						firstDay = firstDay + 304/10- fry[j-1];
-					}
-				}
-			}
-		}
-		return firstDay;
 	}
 	private int NYS(int res2){
 		if(res2 == 0 || res2 ==5){
