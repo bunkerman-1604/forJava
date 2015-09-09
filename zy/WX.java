@@ -4,9 +4,9 @@ public class WX{
 	private int[] tg,dz,bd;
 	private int[] bgName = new int[10];
 	private double[] wx = new double[10];//JMTSH
-	private String[] wxName = {"阳金","阴金","阳木","阴木","阳土","阴土","阳水","阴水","阳火","阴火"};
-	private String[] lqName = {"正印","偏印","正官","七杀","正财","偏财","伤官","食神","帮比","劫财"};
-//	private String[] LQ = {"父母","兄弟","子女","妻财","官鬼"};
+	private String[] wxName = {"闃抽噾","闃撮噾","闃虫湪","闃存湪","闃冲湡","闃村湡","闃虫按","闃存按","闃崇伀","闃寸伀"};
+	private String[] lqName = {"姝ｅ嵃","鍋忓嵃","姝ｅ畼","涓冩潃","姝ｈ储","鍋忚储","浼ゅ畼","椋熺","甯瘮","鍔储"};
+//	private String[] LQ = {"鐖舵瘝","鍏勫紵","瀛愬コ","濡昏储","瀹橀"};
 	private String[] res;
 	public WX(WWG parameter){
 		this.res = new String[10];
@@ -71,7 +71,7 @@ public class WX{
 					}
 				}
 			}
-			res[4] = "元神";
+			res[4] = "鍏冪";
 			for(int i = 4;i < this.tg.length;i++){
 				tg = this.tg[i];
 				dz = this.dz[i];
@@ -102,7 +102,7 @@ public class WX{
 					}
 				}
 				if(i == (this.bd[0]-1)/3){
-					res[i] = "元神";
+					res[i] = "鍏冪";
 				}
 			}
 		}
