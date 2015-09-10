@@ -45,6 +45,12 @@ elif type == 3:
     {"$set": {"cuisine": "American(new)"},"$currentDate":{"lastModified": True}}
   )
   print(result.modified_count)
+elif type == 4:
+  #updated data from mongodb
+  compressedFile = StringIO.StringIO()
+  fs = GridFS(db,collection='audio')
+  gf = fs.put(compressedFile.getvalue(),filename=title+'.'+format,format=format)
+  print(str(gf))
 else:
   #deleted data from mongodb
   cursor  = db.restaurants.delete_many({"borough":"2 Avenue"})
