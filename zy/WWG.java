@@ -62,6 +62,18 @@ public class WWG{
 	public int[] getBD(){
 		return this.bd;
 	}
+	public void changeYao(String yangYao, String yinYao){
+		if	(yangYao.length() != yinYao.length()) {
+			System.out.println("chengeYao`s parameters is error !");
+		}else{
+			for(int i = 0;i < 10;i++){
+				for(int j = 0;j < 3;j++){
+					getA()[i].getYy()[j].setIOyang(yangYao);
+					getA()[i].getYy()[j].setIOyin(yinYao);
+				}
+			}
+		}
+	}
 	private String PT(BG b,int i){
 		return b.BPT(2-i%3);
 	}
@@ -163,7 +175,7 @@ public class WWG{
 			bg = new BG(2);
 		}else{
 			bg = null;
-			System.out.println("CGÒì³£");
+			System.out.println("CGå¼‚å¸¸");
 		}
 		return bg;
 	}
@@ -177,7 +189,7 @@ class BG{
 	public void setYy(YY[] yy) {
 		this.yy = yy;
 	}
-	public BG(int aa){//ÏÂÖÐÉÏ
+	public BG(int aa){//ä¸‹ä¸­ä¸Š
 		int	a	=	Math.abs(aa);
 		for(int i = 0;i < 3;i++){
 			this.yy[i]	=	new YY(0);
@@ -222,7 +234,7 @@ class BG{
 		if(i >=0 && i<=2){
 			this.yy[i].BY();
 		}else{
-			System.out.println("BBGÊ§°Ü²ÎÊý"+i);
+			System.out.println("BBGå¤±è´¥å‚æ•°"+i);
 		}
 	}
 	public String BDY(int b){
@@ -234,7 +246,7 @@ class BG{
 }
 class YY{
 	private int yao;
-	private String PTyang = "©¤©¤©¤ ",PTyin = "©¤ ©¤ ",IOyang = "©¤©¤©¤ ",IOyin = "©¤  ©¤ ";
+	private String PTyang = "â”€â”€â”€ ",PTyin = "â”€ â”€ ",IOyang = "â”€â”€â”€ ",IOyin = "â”€  â”€ ";
 	public int getYao() {
 		return yao;
 	}
