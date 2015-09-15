@@ -1,4 +1,4 @@
-package backage;
+package mybackage;
 
 public class TDSS{
 	private int[] tg,dz;

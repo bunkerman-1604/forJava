@@ -1,7 +1,8 @@
-package backage;
+package mybackage;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 public class countTime{
     private static int[] ry={31,29,31,30,31,30,31,31,30,31,30,31};
@@ -15,7 +16,7 @@ public class countTime{
 			this.t1 = m1.group();
 			this.t2 = m2.group();
 		}else{
-			System.out.print("¹¹ÔìcountTimeÊ§°Ü£¬²ÎÊıÎŞ·¨Æ¥Åä£¡d1="+d1+"d2="+d2);
+			System.out.print("æ„é€ countTimeå¤±è´¥ï¼Œå‚æ•°æ— æ³•åŒ¹é…ï¼d1="+d1+"d2="+d2);
 			System.exit(0);
 		}
     }
@@ -25,7 +26,7 @@ public class countTime{
 			this.t1 = m.group();
 			this.t2 = "1001-1-1";
 		}else{
-			System.out.print("¹¹ÔìcountTimeÊ§°Ü£¬²ÎÊıÎŞ·¨Æ¥Åä£¡d1="+d1);
+			System.out.print("æ„é€ countTimeå¤±è´¥ï¼Œå‚æ•°æ— æ³•åŒ¹é…ï¼d1="+d1);
 			System.exit(0);
 		}
     }
@@ -44,7 +45,7 @@ public class countTime{
     	int temp4 = Integer.parseInt(y2.split("\\D")[1]);
     	int temp5 = Integer.parseInt(y1.split("\\D")[2]);
     	int temp6 = Integer.parseInt(y2.split("\\D")[2]);
-    	for (int i = 0;i<1+temp1-temp2;i++)//ËùÓĞÕûÄêµÄ×ÜÌìÊıÌìÊı
+    	for (int i = 0;i<1+temp1-temp2;i++)//æ‰€æœ‰æ•´å¹´çš„æ€»å¤©æ•°å¤©æ•°
         {
             if((temp2+i)%100 == 0){
             	if((temp2+i)%400 == 0){
@@ -65,13 +66,13 @@ public class countTime{
 	private int RN(int i,int temp1, int temp2, int temp3, int temp4, int temp5,
 			int temp6,int res) {
 		res = res + 366;
-    	if(i == 0){//È¥³ıfirstYeard¶àµÄ
+    	if(i == 0){//å»é™¤firstYeardå¤šçš„
     		for(int j = 0;j < temp4-1;j++){
     			res = res - ry[j];
     		}
     		res = res - temp6;
     	}
-    	if(temp2+i == temp1){//È¥³ılastYear¶àµÄ
+    	if(temp2+i == temp1){//å»é™¤lastYearå¤šçš„
         	for(int j = temp3-1;j < 12;j++){
         		res = res - ry[j];
         	}
@@ -82,13 +83,13 @@ public class countTime{
 	private int FRN(int i,int temp1, int temp2, int temp3, int temp4, int temp5,
 			int temp6,int res) {
 		res = res + 365;
-    	if(i == 0){//È¥³ıfirstYeard¶àµÄ
+    	if(i == 0){//å»é™¤firstYeardå¤šçš„
     		for(int j = 0;j < temp4-1;j++){
     			res = res - fry[j];
     		}
     		res = res - temp6;
     	}
-    	if(temp2+i == temp1){//È¥³ılastYear¶àµÄ
+    	if(temp2+i == temp1){//å»é™¤lastYearå¤šçš„
         	for(int j = temp3-1;j < 12;j++){
         		res = res - fry[j];
         	}

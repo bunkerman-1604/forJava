@@ -1,7 +1,19 @@
-package backage;
+package mybackage;
 
 public class Gong{
-	private short GClass,GS;//0-¹é£»7-ÓÎ£»6-±¾
+	private int GClass,GS;//0-å½’ï¼›7-æ¸¸ï¼›6-æœ¬
+	public void setGClass(int gClass) {
+		GClass = gClass;
+	}
+	public void setGS(int gS) {
+		GS = gS;
+	}
+	public int getGClass(){
+		return this.GClass;
+	}
+	public int getGS(){
+		return this.GS;
+	}
 	public Gong(int b){
 		int[] e = null ;
 		for(int j = 0;j < 7;j++){
@@ -22,10 +34,10 @@ public class Gong{
 				}
 			}
 		}
-		this.GClass = (short) b;
-		this.GS = -1;
+		setGClass(b);
+		setGS(-1);
 	}
-	public Gong(int a,int b){//a´ú±íÉÏ,b´ú±íÏÂ
+	public Gong(int a,int b){//aä»£è¡¨ä¸Š,bä»£è¡¨ä¸‹
 		if(a%8 == 0){
 			if(b%8 == 0){
 				this.GClass = 8;
@@ -235,11 +247,5 @@ public class Gong{
 				this.GS = 6;
 			}
 		}
-	}
-	public short getGClass(){
-		return this.GClass;
-	}
-	public short getGS(){
-		return this.GS;
 	}
 }

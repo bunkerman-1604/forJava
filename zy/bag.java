@@ -1,4 +1,5 @@
-package backage;
+package mybackage;
+
 import java.text.SimpleDateFormat;
 
 public class bag {
@@ -11,18 +12,9 @@ public class bag {
 		this.logtime = sdf.format(new java.util.Date());
 		this.tmp1 = new SC(this.logtime);
 	}
-	public String PrintWWG() {
+	public String getExpression(){
 		String pres =  "记录时间:" + this.logtime + "\r\n";
-		pres = pres + this.tar.Print();
-		pres = pres + NJGONG(this.tar);
-		pres = pres + this.tmp1.DayYun() ;
-		pres = pres + this.tmp1.WXN();
-		return pres;
-		
-	}
-	public String DaYinWWG() {
-		String pres =  "记录时间:" + this.logtime + "\r\n";
-		pres = pres + this.tar.IO();
+		pres = pres + this.tar.getExpression();
 		pres = pres + NJGONG(this.tar);
 		pres = pres + this.tmp1.DayYun() ;
 		pres = pres + this.tmp1.WXN();
@@ -85,11 +77,11 @@ public class bag {
 		pres = pres + bb[1]+" "+bb[3]+" "+bb[5]+" "+bb[7]+" "+bb[9]+" \r\n";
 		for(int j = 0;j < 2;j++){
 			if(j == 0){
-				NG = tar2.getBG(1).getBGName();
-				WG = tar2.getBG(0).getBGName();
+				NG = tar2.getBG(1).getBGNum();
+				WG = tar2.getBG(0).getBGNum();
 			}else{
-				NG = tar2.getBG(5).getBGName();
-				WG = tar2.getBG(4).getBGName();
+				NG = tar2.getBG(5).getBGNum();
+				WG = tar2.getBG(4).getBGNum();
 			}
 			tem1 = new NaJia(WG,NG);
 			tem2 = new Gong(WG,NG);

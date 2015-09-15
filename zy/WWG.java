@@ -1,4 +1,4 @@
-package backage;
+package mybackage;
 
 public class WWG{
 	private BG[] a;
@@ -27,26 +27,19 @@ public class WWG{
 		this.a[5] = BG(a,b,c)[1];
 		this.bd = c;
 	}
-	public String Print(){
+	public void changeYao(String yangYao,String yinYao){
+		for(int i = 0;i < this.a.length;i++) {
+			this.a[i].changeYao(yangYao, yinYao);
+		}
+	}
+	public String getExpression(){
 		String res = "";
 		for(int i = 0;i < 6;i++){
-			res = res + PT(this.a[0+i/3],i);
-			res = res + PT(this.a[2+i/3],i);
-			res = res + PT(this.a[4+i/3],i);
-			res = res + PT(this.a[6+i/3],i);
-			res = res + PT(this.a[8+i/3],i);
-			res = res + "\r\n";
-		}
-		return res;
-	}
-	public String IO(){
-		String	res	=	"";
-		for(int i = 0;i < 6;i++){
-			res = res + DY(this.a[0+i/3],i);
-			res = res + DY(this.a[2+i/3],i);
-			res = res + DY(this.a[4+i/3],i);
-			res = res + DY(this.a[6+i/3],i);
-			res = res + DY(this.a[8+i/3],i);
+			res = res + getExpression(this.a[0+i/3],i);
+			res = res + getExpression(this.a[2+i/3],i);
+			res = res + getExpression(this.a[4+i/3],i);
+			res = res + getExpression(this.a[6+i/3],i);
+			res = res + getExpression(this.a[8+i/3],i);
 			res = res + "\r\n";
 		}
 		return res;
@@ -62,23 +55,8 @@ public class WWG{
 	public int[] getBD(){
 		return this.bd;
 	}
-	public void changeYao(String yangYao, String yinYao){
-		if	(yangYao.length() != yinYao.length()) {
-			System.out.println("chengeYao`s parameters is error !");
-		}else{
-			for(int i = 0;i < 10;i++){
-				for(int j = 0;j < 3;j++){
-					getA()[i].getYy()[j].setIOyang(yangYao);
-					getA()[i].getYy()[j].setIOyin(yinYao);
-				}
-			}
-		}
-	}
-	private String PT(BG b,int i){
-		return b.BPT(2-i%3);
-	}
-	private String DY(BG b,int i){
-		return b.BDY(2-i%3);
+	private String getExpression(BG b,int i) {
+		return b.getExpression(2-i%3);
 	}
 	private void TG(int a,int b){
 		this.a = new BG[10];
@@ -182,7 +160,7 @@ public class WWG{
 }
 class BG{
 	private YY[] yy = new YY[3];
-	private int BGName;
+	private int BGNum;
 	public YY[] getYy() {
 		return yy;
 	}
@@ -198,37 +176,52 @@ class BG{
 		this.yy[1].setYao(((a%8+1)/2)%2);
 		this.yy[2].setYao((a%8)%2);
 	}
-	public int getBGName(){
+	public BG(int aa,String yangYao,String yinYao){
+		int	a	=	Math.abs(aa);
+		for(int i = 0;i < 3;i++){
+			this.yy[i]	=	new YY(0,yangYao,yinYao);
+		}
+		this.yy[0].setYao(((8-a%8)/4)%2);
+		this.yy[1].setYao(((a%8+1)/2)%2);
+		this.yy[2].setYao((a%8)%2);
+	}
+	public void changeYao(String yangYao,String yinYao){
+		for(int i = 0;i < 3;i++) {
+			this.yy[i].setYangYao(yangYao);
+			this.yy[i].setYinYao(yinYao);
+		}
+	}
+	public int getBGNum(){
 		if(this.yy[0].getYao()%2 == 0){
 			if(this.yy[1].getYao()%2 == 0){
 				if(this.yy[2].getYao()%2 == 0){
-					this.BGName = 8;
+					this.BGNum = 8;
 				}else{
-					this.BGName = 7;
+					this.BGNum = 7;
 				}
 			}else{
 				if(this.yy[2].getYao()%2 == 0){
-					this.BGName = 6;
+					this.BGNum = 6;
 				}else{
-					this.BGName = 5;
+					this.BGNum = 5;
 				}
 			}
 		}else{
 			if(this.yy[1].getYao()%2 == 0){
 				if(this.yy[2].getYao()%2 == 0){
-					this.BGName = 4;
+					this.BGNum = 4;
 				}else{
-					this.BGName = 3;
+					this.BGNum = 3;
 				}
 			}else{
 				if(this.yy[2].getYao()%2 == 0){
-					this.BGName = 2;
+					this.BGNum = 2;
 				}else{
-					this.BGName = 1;
+					this.BGNum = 1;
 				}
 			}
 		}
-		return this.BGName;
+		return this.BGNum;
 	}
 	public void BYY(int i){
 		if(i >=0 && i<=2){
@@ -237,64 +230,47 @@ class BG{
 			System.out.println("BBG失败参数"+i);
 		}
 	}
-	public String BDY(int b){
-		return this.yy[b%3].DY();
-	}
-	public String BPT(int b){
-		return this.yy[b%3].PT();
+	public String getExpression(int b){
+		return this.yy[b%3].getExpression();
 	}
 }
 class YY{
 	private int yao;
-	private String PTyang = "─── ",PTyin = "─ ─ ",IOyang = "─── ",IOyin = "─  ─ ";
+	private	String	yangYao="一一一 |",yinYao="一丶一 |";
 	public int getYao() {
 		return yao;
+	}
+	public String getYangYao() {
+		return yangYao;
+	}
+	public void setYangYao(String yangYao) {
+		this.yangYao = yangYao;
+	}
+	public String getYinYao() {
+		return yinYao;
+	}
+	public void setYinYao(String yinYao) {
+		this.yinYao = yinYao;
 	}
 	public void setYao(int yao) {
 		this.yao = Math.abs(yao)%2;
 	}
-	public String getPTyang() {
-		return PTyang;
-	}
-	public void setPTyang(String pTyang) {
-		PTyang = pTyang;
-	}
-	public String getPTyin() {
-		return PTyin;
-	}
-	public void setPTyin(String pTyin) {
-		PTyin = pTyin;
-	}
-	public String getIOyang() {
-		return IOyang;
-	}
-	public void setIOyang(String iOyang) {
-		IOyang = iOyang;
-	}
-	public String getIOyin() {
-		return IOyin;
-	}
-	public void setIOyin(String iOyin) {
-		IOyin = iOyin;
-	}
 	public YY(int a){
 		setYao(Math.abs(a)%2);
+	}
+	public YY(int a,String yangYao,String yinYao){
+		setYao(Math.abs(a)%2);
+		this.yangYao	=	yangYao;
+		this.yinYao		=	yinYao;
 	}
 	public void BY(){
 		setYao(getYao()+1);
 	}
-	public String DY(){
-		if(getYao()%2==1){
-			return getIOyang();
+	public String getExpression(){
+		if(this.yao%2 == 1) {
+			return	this.yangYao;
 		}else{
-			return getIOyin();
-		}
-	}
-	public String PT(){
-		if(getYao()%2==1){
-			return getPTyang();
-		}else{
-			return getPTyin();
+			return	this.yinYao;
 		}
 	}
 }

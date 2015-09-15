@@ -1,12 +1,12 @@
-package backage;
+package mybackage;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SC{
-	private String[] TG = {"¹ï","¼×","ÒÒ","±û","¶¡","Îì","¼º","¸ı","ĞÁ","ÈÉ"};
-	private String[] DZ = {"º¥","×Ó","³ó","Òú","Ã®","³½","ËÈ","Îç","Î´","Éê","ÓÏ","Ğç"};
+	private String[] TG = {"ç™¸","ç”²","ä¹™","ä¸™","ä¸","æˆŠ","å·±","åºš","è¾›","å£¬"};
+	private String[] DZ = {"äº¥","å­","ä¸‘","å¯…","å¯","è¾°","å·³","åˆ","æœª","ç”³","é…‰","æˆŒ"};
 	private int[] tg,dz;
 	private String SC;
 	public SC(String NYRS){
@@ -17,16 +17,16 @@ public class SC{
 			this.tg = TGDZ(this.SC, 0);
 			this.dz = TGDZ(this.SC, 1);
 		}else{
-			System.out.print("¹¹ÔìSCÊ§°Ü£¬²ÎÊıÎŞ·¨Æ¥ÅäNYRS£¡");
+			System.out.print("æ„é€ SCå¤±è´¥ï¼Œå‚æ•°æ— æ³•åŒ¹é…NYRSï¼");
 			System.exit(0);
 		}
 	}
 	public SC(int[] tg,int[] dz){
 		if(tg.length != dz.length){
-			System.out.println("¹¹ÔìSCÊ§°Ü!TG³¤¶È:"+tg.length+"DZ³¤¶È:"+dz.length);
+			System.out.println("æ„é€ SCå¤±è´¥!TGé•¿åº¦:"+tg.length+"DZé•¿åº¦:"+dz.length);
 		}else{
 			if(tg.length < 3){
-				System.out.println("tgÊıÁ¿²»×ã£¡tg³¤¶È£º"+tg.length);
+				System.out.println("tgæ•°é‡ä¸è¶³ï¼tgé•¿åº¦ï¼š"+tg.length);
 			}else{
 				this.tg = tg;
 				this.dz = dz;
@@ -54,7 +54,7 @@ public class SC{
 		return res;
 	}
 	public String DYun(SC s1,int sex) {
-    	String pres = "´óÔËÁ÷ÄêÇé¿ö:\r\n";
+    	String pres = "å¤§è¿æµå¹´æƒ…å†µ:\r\n";
 		int[] tgdz = (int[]) s1.DYLN(sex%2).get(0);
 		String[] res = (String[]) s1.DYLN(sex%2).get(1);
 		int[] stg= s1.getTG();
@@ -78,41 +78,41 @@ public class SC{
 		String[] temp1 = tgch();
 		String[] temp2 = dzch();
 		String[] temp3 = dzcg().split("-");
-		String	 res = "Ìì¸ÉµØÖ§:\r\n";
+		String	 res = "å¤©å¹²åœ°æ”¯:\r\n";
 		for(int i = 0;i < temp0.length;i++){
 			if(i == 4){
 				res = res + "\r\n";
 			}
 			res = res + temp0[i].replaceAll(" ", "") +"  ";
 		}
-		res = res+"\r\nÌì¸É³åºÏ:\r\n";
+		res = res+"\r\nå¤©å¹²å†²åˆ:\r\n";
 		for(int i = 0;i <temp1.length;i++){
 			if(temp1[i].length() > 3){
 				res = res + temp1[i] +"  \r\n";
 			}
 		}
-		res = res+"µØÖ§³åºÏ:\r\n";
+		res = res+"åœ°æ”¯å†²åˆ:\r\n";
 		for(int i = 0;i < temp2.length;i++){
 			if(temp2[i].length() > 5){
 				res = res + temp2[i] +"  \r\n";
 			}
 		}
-		res = res+"¸ÉÖ§³åºÏ:\r\n"+gzch();
-		res = res+"µØÖ§²Ø¸É:\r\n";
+		res = res+"å¹²æ”¯å†²åˆ:\r\n"+gzch();
+		res = res+"åœ°æ”¯è—å¹²:\r\n";
 		if(temp3[0] != null){
-			res = res + "ÕıÆø:"+temp3[0]+"\r\n";
+			res = res + "æ­£æ°”:"+temp3[0]+"\r\n";
 		}
 		if(temp3[1] != null){
-			res = res + "ÖĞÆø:"+temp3[1]+"\r\n";
+			res = res + "ä¸­æ°”:"+temp3[1]+"\r\n";
 		}
 		if(temp3[2] != null){
-			res = res + "ÓàÆø:"+temp3[2]+"\r\n";
+			res = res + "ä½™æ°”:"+temp3[2]+"\r\n";
 		}
 		return res;
 	} 
 	public String WXN() {
 		WX wx = new WX(this);
-		String res = "Ê®Éñ×´¿ö:\r\n";
+		String res = "åç¥çŠ¶å†µ:\r\n";
 		String[] res1 = wx.getRes();
 		String[] res2 = wx.getLQ();
 		for(int j = 0;j < 2;j++){
@@ -123,7 +123,7 @@ public class SC{
 			}
 			res = res + "\r\n";
 		}
-		res = res +"ÎåĞĞ×´¿ö:\r\n";
+		res = res +"äº”è¡ŒçŠ¶å†µ:\r\n";
 		for(int j = 0;j < 2;j++){
 			for(int i = res1.length-1;i > -1;i--){
 				if((i+j)%2 == 0){
@@ -132,7 +132,7 @@ public class SC{
 			}
 			res = res + "\r\n";
 		}
-		res = res + "ÎåĞĞÊıÁ¿:\r\n";
+		res = res + "äº”è¡Œæ•°é‡:\r\n";
 		res = res + wx.printWX();
 		return res;
 	}
@@ -142,8 +142,8 @@ public class SC{
 		String res4 = "WH";
 		short[] cc = new short[4];
 		short[] hh = new short[5];
-		String[] XC = {" ¼×Ä¾¸ı½ğÎªÏà³å"," ÒÒÄ¾ĞÁ½ğÎªÏà³å"," ±û»ğÈÉË®ÎªÏà³å"," ¶¡»ğ¹ïË®ÎªÏà³å"};//1-7,2-8,3-9,4-0
-		String[] WH = {" ¼×Ä¾¼ºÍÁ»¯ºÏÍÁ"," ÒÒÄ¾¸ı½ğ»¯ºÏ½ğ"," ±û»ğĞÁ½ğ»¯ºÏË®"," ¶¡»ğÈÉË®»¯ºÏÄ¾"," ÎìÍÁ¹ïË®»¯ºÏ»ğ"};//1-6,2-7,3-8,4-9,5-0
+		String[] XC = {" ç”²æœ¨åºšé‡‘ä¸ºç›¸å†²"," ä¹™æœ¨è¾›é‡‘ä¸ºç›¸å†²"," ä¸™ç«å£¬æ°´ä¸ºç›¸å†²"," ä¸ç«ç™¸æ°´ä¸ºç›¸å†²"};//1-7,2-8,3-9,4-0
+		String[] WH = {" ç”²æœ¨å·±åœŸåŒ–åˆåœŸ"," ä¹™æœ¨åºšé‡‘åŒ–åˆé‡‘"," ä¸™ç«è¾›é‡‘åŒ–åˆæ°´"," ä¸ç«å£¬æ°´åŒ–åˆæœ¨"," æˆŠåœŸç™¸æ°´åŒ–åˆç«"};//1-6,2-7,3-8,4-9,5-0
 		for(int i = 0;i < this.tg.length;i++){
 			for(int j = 0;j < this.tg.length;j++){//he
 				if(this.tg[i] < this.tg[j]){//XC
@@ -170,12 +170,12 @@ public class SC{
 		}
 		for(int i = 0;i < 4;i++){
 			if(cc[i] != 0){
-				res3 = res3+"@"+cc[i]/2+"¸ö"+XC[i];
+				res3 = res3+"@"+cc[i]/2+"ä¸ª"+XC[i];
 			}
 		}
 		for(int i = 0;i < 5;i++){
 			if(hh[i] != 0){
-				res4 = res4+"@"+hh[i]/2+"¸ö"+WH[i];
+				res4 = res4+"@"+hh[i]/2+"ä¸ª"+WH[i];
 			}
 		}
 		temp[0] = res3.substring(2);
@@ -195,7 +195,7 @@ public class SC{
 	private String gzch(){
 		String res1 = "CH";
 		short[] ch = new short[9];
-		String[] c = {"¼×Îç","ÒÒËÈ","±ûĞç","¶¡º¥","Îì×Ó","¼ºº¥","¸ı³½","ĞÁËÈ","ÈÉÎç"};//g1-z7;g2-z6;g3-z11;g4-z0;g5-z1;g6-z0;g7-z5;g8-z6;g9-z7;
+		String[] c = {"ç”²åˆ","ä¹™å·³","ä¸™æˆŒ","ä¸äº¥","æˆŠå­","å·±äº¥","åºšè¾°","è¾›å·³","å£¬åˆ"};//g1-z7;g2-z6;g3-z11;g4-z0;g5-z1;g6-z0;g7-z5;g8-z6;g9-z7;
 		for(int i = 0;i < this.dz.length;i++){
 			if(this.dz[i] == 0){
 				if(this.tg[i] == 4){
@@ -243,12 +243,12 @@ public class SC{
 		String res1 = "zq";
 		String res2 = "gq";
 		String res3 = "yq";
-		String[] temp1 = new String[this.dz.length];//ÕıÆø
-		String[] temp2 = new String[this.dz.length];//ÖĞÆø
-		String[] temp3 = new String[this.dz.length];//ÓàÆø
+		String[] temp1 = new String[this.dz.length];//æ­£æ°”
+		String[] temp2 = new String[this.dz.length];//ä¸­æ°”
+		String[] temp3 = new String[this.dz.length];//ä½™æ°”
 		for(int i = 0;i < this.dz.length;i++){
 			int tmp;
-			if(((this.dz[i]+11)%12)%3 == 0){//Õı¶¬¡¢´º¡¢ÏÄ¡¢Çï
+			if(((this.dz[i]+11)%12)%3 == 0){//æ­£å†¬ã€æ˜¥ã€å¤ã€ç§‹
 				tmp = ((this.dz[i]+11)%12)/2;
 				if(tmp == 3 && ((this.dz[i]+11)%12)%2 == 0){
 					temp1[i] = 4+"";
@@ -257,7 +257,7 @@ public class SC{
 					temp1[i] = tmp*2+"";
 				}
 				continue;
-			}else if(this.dz[i]%3 == 0){//ÁÙ¶¬¡¢´º¡¢ÏÄ¡¢Çï
+			}else if(this.dz[i]%3 == 0){//ä¸´å†¬ã€æ˜¥ã€å¤ã€ç§‹
 				tmp = this.dz[i]/3;
 				if(tmp == 0){
 					temp1[i] = 9+"";
@@ -268,7 +268,7 @@ public class SC{
 					temp3[i] = 2*(tmp-1)+5+"";
 				}
 				continue;
-			}else{//Ä¹¶¬¡¢´º¡¢ÏÄ¡¢Çï
+			}else{//å¢“å†¬ã€æ˜¥ã€å¤ã€ç§‹
 				if(this.dz[i] == 2){
 					temp1[i] = 6+"";
 					temp2[i] = 0+"";
@@ -295,24 +295,23 @@ public class SC{
 			if(temp1[i] != null){
 				res1 = res1+" "+this.TG[Integer.parseInt(temp1[i])];
 			}else{
-				res1 = res1+" ¡ğ";
+				res1 = res1+" â—‹";
 			}
 			if(temp2[i] != null){
 				res2 = res2+" "+this.TG[Integer.parseInt(temp2[i])];
 			}else{
-				res2 = res2+" ¡ğ";
+				res2 = res2+" â—‹";
 			}
 			if(temp3[i] != null){
 				res3 = res3+" "+this.TG[Integer.parseInt(temp3[i])];
 			}else{
-				res3 = res3+" ¡ğ";
+				res3 = res3+" â—‹";
 			}
 		}
 		return res1.substring(2)+"-"+res2.substring(2)+"-"+res3.substring(2)+" ";
 	}
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private ArrayList DYLN(int sex){
-		ArrayList res = new ArrayList();
+	private ArrayList<Object> DYLN(int sex){
+		ArrayList<Object> res = new ArrayList<Object>();
 		int[] res0 = new int[16];
 		String[] res1 = new String[8];
 		if(sex == 0){//NV
@@ -352,14 +351,14 @@ public class SC{
 		String res1 = "he";
 		String res2 = "ha";
 		String res3 = "ch";
-		String[] LHe = {" Òúº¥ÉúºÏÄ¾"," ËÈÉê°íºÏË®"," ×Ó³ó°íºÏÍÁ"," ÎçÎ´ÉúºÏÍÁ"," Ã®Ğç°íºÏ»ğ"," ³½ÓÏÉúºÏ½ğ"};//3-0,6-9,1-2,7-8,4-11,5-10
-		String[] LHa = {" Éêº¥Ïàº¦"," ÒúËÈÏàº¦"," ×ÓÎ´Ïàº¦"," Îç³óÏàº¦"," Ã®³½Ïàº¦"," ÓÏĞçÏàº¦"};//9-0,3-6,1-8,7-2,4-5,10-11
-		String[] LCh = {" ËÈº¥Ïà³å"," ÒúÉêÏà³å"," ×ÓÎçÏà³å"," ³óÎ´Ïà³å"," Ã®ÓÏÏà³å"," ³½ĞçÏà³å"};//6-0,3-9,1-7,2-8,4-10,5-11
+		String[] LHe = {" å¯…äº¥ç”Ÿåˆæœ¨"," å·³ç”³ç»Šåˆæ°´"," å­ä¸‘ç»ŠåˆåœŸ"," åˆæœªç”ŸåˆåœŸ"," å¯æˆŒç»Šåˆç«"," è¾°é…‰ç”Ÿåˆé‡‘"};//3-0,6-9,1-2,7-8,4-11,5-10
+		String[] LHa = {" ç”³äº¥ç›¸å®³"," å¯…å·³ç›¸å®³"," å­æœªç›¸å®³"," åˆä¸‘ç›¸å®³"," å¯è¾°ç›¸å®³"," é…‰æˆŒç›¸å®³"};//9-0,3-6,1-8,7-2,4-5,10-11
+		String[] LCh = {" å·³äº¥ç›¸å†²"," å¯…ç”³ç›¸å†²"," å­åˆç›¸å†²"," ä¸‘æœªç›¸å†²"," å¯é…‰ç›¸å†²"," è¾°æˆŒç›¸å†²"};//6-0,3-9,1-7,2-8,4-10,5-11
 		short[] tmp1 = new short[6];
 		short[] tmp2 = new short[6];
 		short[] tmp3 = new short[6];
 		for(int i = 0;i < dz2.length;i++){
-			if(dz2[i]%3 == 0){//ÒúËÈÉêº¥
+			if(dz2[i]%3 == 0){//å¯…å·³ç”³äº¥
 				for(int j = 0;j < dz2.length;j++){//he
 					if(dz2[i] < dz2[j]){
 						if(dz2[j] == (dz2[i]+(2*((dz2[i]/3)%2)-1)*9+12)%12){
@@ -384,7 +383,7 @@ public class SC{
 					}
 				}
 				continue;
-			}else if(dz2[i]%6 == 1 || dz2[i]%6 == 2){//×Ó³óÎçÎ´
+			}else if(dz2[i]%6 == 1 || dz2[i]%6 == 2){//å­ä¸‘åˆæœª
 				for(int j = 0;j < dz2.length;j++){//he
 					if(dz2[i] < dz2[j]){
 						if(dz2[j] == dz2[i]+1*(2*(dz2[i]%2)-1)){
@@ -409,7 +408,7 @@ public class SC{
 					}
 				}
 				continue;
-			}else if(dz2[i]%6 == 4 || dz2[i]%6 == 5){//Ã®³½ÓÏĞç
+			}else if(dz2[i]%6 == 4 || dz2[i]%6 == 5){//å¯è¾°é…‰æˆŒ
 				for(int j = 0;j < dz2.length;j++){//he
 					if(dz2[i] < dz2[j]){
 						if(dz2[j] == 15-dz2[i]){
@@ -437,13 +436,13 @@ public class SC{
 		}
 		for(int i = 0;i < 6;i++){
 			if(tmp1[i] != 0){
-				res1 = res1+"LHE"+tmp1[i]/2+"¸ö"+LHe[i];
+				res1 = res1+"LHE"+tmp1[i]/2+"ä¸ª"+LHe[i];
 			}
 			if(tmp2[i] != 0){
-				res2 = res2+"LHH"+tmp2[i]/2+"¸ö"+LHa[i];
+				res2 = res2+"LHH"+tmp2[i]/2+"ä¸ª"+LHa[i];
 			}
 			if(tmp3[i] != 0){
-				res3 = res3+"LCH"+tmp3[i]/2+"¸ö"+LCh[i];
+				res3 = res3+"LCH"+tmp3[i]/2+"ä¸ª"+LCh[i];
 			}
 		}
 		return res1.substring(2)+"-"+res2.substring(2)+"-"+res3.substring(2)+" ";
@@ -451,7 +450,7 @@ public class SC{
 	private String sanXN(int[] dz2) {
 		String res ="SX";
 		short[] tmp = new short[4];
-		String[] SXN = {" ÒúËÈÉêÏàĞÌ"," ³óĞçÎ´ÏàĞÌ"," ×ÓÃ®ÏàĞÌ"," º¥³½ÎçÓÏ×ÔĞÌ"};//3-6-9;2-8-11(5);1-4;5;7;10;0;
+		String[] SXN = {" å¯…å·³ç”³ç›¸åˆ‘"," ä¸‘æˆŒæœªç›¸åˆ‘"," å­å¯ç›¸åˆ‘"," äº¥è¾°åˆé…‰è‡ªåˆ‘"};//3-6-9;2-8-11(5);1-4;5;7;10;0;
 		for(int i = 0;i < dz2.length;i++){
 			if(dz2[i] == 6){
 				for(int j = 0;j < dz2.length;j++){
@@ -484,12 +483,12 @@ public class SC{
 				continue;
 			}else if(6 == dz2[i]%6 + 4*(dz2[i]/6)+1 || 6 == dz2[i]%6 - 8*((dz2[i]+11)/12-1) + 2*(2*(dz2[i]/10)-1)){//0-5-7-10
 				for(int j = 0;j < i;j++){//TODO
-					if(dz2[j] == dz2[i]){//Ëã·¨Ôİ¶¨
+					if(dz2[j] == dz2[i]){//ç®—æ³•æš‚å®š
 						tmp[3]++;
 					}
 				}
 				for(int j = i+1;j < dz2.length;j++){//TODO
-					if(dz2[j] == dz2[i]){//Ëã·¨Ôİ¶¨
+					if(dz2[j] == dz2[i]){//ç®—æ³•æš‚å®š
 						tmp[3]++;
 					}
 				}
@@ -498,9 +497,9 @@ public class SC{
 		for(int i = 0;i < 4;i++){
 			if(tmp[i] != 0){
 				if(i < 2){
-					res = res+"!"+tmp[i]+"¸ö"+SXN[i];
+					res = res+"!"+tmp[i]+"ä¸ª"+SXN[i];
 				}else{
-					res = res+"!"+tmp[i]/2+"¸ö"+SXN[i];
+					res = res+"!"+tmp[i]/2+"ä¸ª"+SXN[i];
 				}
 			}
 		}
@@ -511,19 +510,19 @@ public class SC{
 		String res2 ="Hu";
 		short[] tmp1 = new short[6];
 		short[] tmp2 = new short[6];
-		String[] sanHe = {" Éê×Ó³½»¯ºÏË®"," º¥Ã®Î´»¯ºÏÄ¾"," ÒúÎçĞç»¯ºÏ»ğ"," ËÈÓÏ³ó»¯ºÏ½ğ"};//9-1(13)-5(17);0-4-8;3-7-11;6-10-2(14);
-		String[] sanHu = {" º¥×Ó³ó»á±±Ë®"," ÒúÃ®³½»á¶«Ä¾"," ËÈÎçÎ´»áÄÏ»ğ"," ÉêÓÏĞç»áÎ÷½ğ"};//0-1-2;3-4-5;6-7-8;9-10-11;
+		String[] sanHe = {" ç”³å­è¾°åŒ–åˆæ°´"," äº¥å¯æœªåŒ–åˆæœ¨"," å¯…åˆæˆŒåŒ–åˆç«"," å·³é…‰ä¸‘åŒ–åˆé‡‘"};//9-1(13)-5(17);0-4-8;3-7-11;6-10-2(14);
+		String[] sanHu = {" äº¥å­ä¸‘ä¼šåŒ—æ°´"," å¯…å¯è¾°ä¼šä¸œæœ¨"," å·³åˆæœªä¼šå—ç«"," ç”³é…‰æˆŒä¼šè¥¿é‡‘"};//0-1-2;3-4-5;6-7-8;9-10-11;
 		for(int i = 0;i < dz2.length;i++){
-			if(dz2[i]%3 == 1){//È·ÈÏÊÇ·ñ´æÔÚÌ«¼«µã
+			if(dz2[i]%3 == 1){//ç¡®è®¤æ˜¯å¦å­˜åœ¨å¤ªæç‚¹
 				for(int j = 0;j < dz2.length;j++){
-					if(dz2[j] == (dz2[i]+8)%12){//È·ÈÏÊÇ·ñ´æÔÚºÏ
+					if(dz2[j] == (dz2[i]+8)%12){//ç¡®è®¤æ˜¯å¦å­˜åœ¨åˆ
 						for(int k = 0;k < dz2.length;k++){
 							if(dz2[k] == (dz2[i]+4)%12){
 								tmp1[dz2[i]/3]++;
 							}
 						}
 						continue;
-					}else if(dz2[j] == dz2[i]-1){//È·ÈÏÊÇ·ñ´æÔÚ»á
+					}else if(dz2[j] == dz2[i]-1){//ç¡®è®¤æ˜¯å¦å­˜åœ¨ä¼š
 						for(int k = 0;k < dz2.length;k++){
 							if(dz2[k] == dz2[i]+1){
 								tmp2[dz2[i]/3]++;
@@ -535,10 +534,10 @@ public class SC{
 		}
 		for(int i = 0;i < 6;i++){
 			if(tmp1[i] != 0){
-				res1 = res1+"~"+tmp1[i]+"¸ö"+sanHe[i];
+				res1 = res1+"~"+tmp1[i]+"ä¸ª"+sanHe[i];
 			}
 			if(tmp2[i] != 0){
-				res2 = res2+"~"+tmp2[i]+"¸ö"+sanHu[i];
+				res2 = res2+"~"+tmp2[i]+"ä¸ª"+sanHu[i];
 			}
 		}
 		return res1.substring(2)+"-"+res2.substring(2)+" ";

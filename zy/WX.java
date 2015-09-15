@@ -1,4 +1,4 @@
-package backage;
+package mybackage;
 
 public class WX{
 	private int[] tg,dz,bd;
@@ -14,7 +14,7 @@ public class WX{
 		this.tg = null;
 		this.dz = null;
 		for(int i = 0;i < 10;i++){
-			this.bgName[i] = parameter.getBG(i).getBGName();
+			this.bgName[i] = parameter.getBG(i).getBGNum();
 			this.res[i] = this.wxName[bgwx(this.bgName[i])];
 			if(this.bgName[i] == 3 || this.bgName[i] == 6){
 				this.wx[bgwx(this.bgName[i])+i%2]++;

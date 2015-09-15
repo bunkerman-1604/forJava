@@ -1,4 +1,4 @@
-package backage;
+package mybackage;
 
 public class NaJia{
 	private int[] TG = new int[2];
