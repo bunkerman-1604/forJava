@@ -1,4 +1,4 @@
-package mybackage;
+package bager;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -97,63 +97,52 @@ public class countTime{
         }
 		return res;
 	}
-	public static int JQ(int parseInt, int i) {
-		int firstDay = 0;
-		if(i == 1){
-			firstDay = (int) (((parseInt-1)*0.2422+4.475)-((parseInt-1)/4-15));
-			if((parseInt-1)%4 == 0){
-				for(int j = 2;j < 13;j++){
-					if(j == 5){
-						firstDay = firstDay + 320/10- ry[j-1];
-					}else if(j>5 && j<8){
-						firstDay = firstDay + 319/10- ry[j-1];
-					}else if(j == 8){
-						firstDay = firstDay + 320/10- ry[j-1];
-					}else{
-						firstDay = firstDay + 304/10- ry[j-1];
-					}
+	public static int[] JQ(int parseInt, int i) {
+		int			Y	= parseInt%100;
+		int[]		JQDay 	= {0,0};
+		double		D	= 0.2422;
+		double[]	C1	= {3.87,18.74,5.63,20.646,4.81,20.100,5.520,21.04,5.678,21.37,7.108,22.83,7.50,23.13,7.646,23.042,8.318,23.438,7.438,22.36,7.18,21.94,5.4055,20.12};
+		double[]	C2	= {4.15,18.73,5.63,20.646,5.59,20.888,6.318,21.86,6.500,22.20,7.928,23.65,8.35,23.95,8.440,23.822,9.098,24.218,8.218,23.08,7.90,22.60,6.1100,20.84};
+		if (parseInt/100 == 20){
+			if(i == 1 || i == 2){
+				if(Y == 0){
+					JQDay[0]	= (int) (Y*D+C1[(i*2+20)%24]);
+					JQDay[1]	= (int) (Y*D+C1[(i*2+21)%24]);
+				}else{
+					JQDay[0]	= (int) (Y*D+C1[(i*2+20)%24]-(Y-1)/4);
+					JQDay[1]	= (int) (Y*D+C1[(i*2+21)%24]-(Y-1)/4);
 				}
 			}else{
-				for(int j = 2;j < i;j++){
-					if(j == 5){
-						firstDay = firstDay + 320/10- fry[j-1];
-					}else if(j>5 && j<8){
-						firstDay = firstDay + 319/10- fry[j-1];
-					}else if(j == 8){
-						firstDay = firstDay + 320/10- fry[j-1];
-					}else{
-						firstDay = firstDay + 304/10- fry[j-1];
-					}
+				JQDay[0]	= (int) (Y*D+C1[(i*2+20)%24]-Y/4);
+				JQDay[1]	= (int) (Y*D+C1[(i*2+21)%24]-Y/4);
+			}
+		}else if (parseInt/100 == 21){
+			if(i == 1 || i == 2){
+				if(Y == 0){
+					JQDay[0]	= (int) (Y*D+C2[(i*2+20)%24]);
+					JQDay[1]	= (int) (Y*D+C2[(i*2+21)%24]);
+				}else{
+					JQDay[0]	= (int) (Y*D+C2[(i*2+20)%24]-(Y-1)/4);
+					JQDay[1]	= (int) (Y*D+C2[(i*2+21)%24]-(Y-1)/4);
 				}
+			}else{
+				JQDay[0]	= (int) (Y*D+C2[(i*2+20)%24]-Y/4);
+				JQDay[1]	= (int) (Y*D+C2[(i*2+21)%24]-Y/4);
 			}
 		}else{
-			firstDay = (int) ((parseInt*0.2422+4.475)-(parseInt/4-15));
-			if(parseInt%4 == 0){
-				for(int j = 2;j < i;j++){
-					if(j == 5){
-						firstDay = firstDay + 320/10- ry[j-1];
-					}else if(j>5 && j<8){
-						firstDay = firstDay + 319/10- ry[j-1];
-					}else if(j == 8){
-						firstDay = firstDay + 320/10- ry[j-1];
-					}else{
-						firstDay = firstDay + 304/10- ry[j-1];
-					}
+			if(i == 1 || i == 2){
+				if(Y == 0){
+					JQDay[0]	= (int) (Y*D+C1[(i*2+20)%24]);
+					JQDay[1]	= (int) (Y*D+C1[(i*2+21)%24]);
+				}else{
+					JQDay[0]	= (int) (Y*D+C1[(i*2+20)%24]-(Y-1)/4);
+					JQDay[1]	= (int) (Y*D+C1[(i*2+21)%24]-(Y-1)/4);
 				}
 			}else{
-				for(int j = 2;j < i;j++){
-					if(j == 5){
-						firstDay = firstDay + 320/10- fry[j-1];
-					}else if(j>5 && j<8){
-						firstDay = firstDay + 319/10- fry[j-1];
-					}else if(j == 8){
-						firstDay = firstDay + 320/10- fry[j-1];
-					}else{
-						firstDay = firstDay + 304/10- fry[j-1];
-					}
-				}
+				JQDay[0]	= (int) (Y*D+C1[(i*2+20)%24]-Y/4);
+				JQDay[1]	= (int) (Y*D+C1[(i*2+21)%24]-Y/4);
 			}
 		}
-		return firstDay;
+		return JQDay;
 	}
 }
