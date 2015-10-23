@@ -1,4 +1,4 @@
-package mybackage;
+package bager;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -557,7 +557,7 @@ public class SC{
 						res[i] = (NYS(res[i-1])+Integer.parseInt(timeSC[i])-2)%10;
 					}
 				}else if(i == 2){//R
-					if(Integer.parseInt(timeSC[i]) < countTime.JQ(Integer.parseInt(timeSC[0]),Integer.parseInt(timeSC[1]))){
+					if(Integer.parseInt(timeSC[i]) < countTime.JQ(Integer.parseInt(timeSC[0]),Integer.parseInt(timeSC[1]))[0]){
 						if(Integer.parseInt(timeSC[i-1]) == 1){
 							res[i-1] = (NYS(res[i-2])+Integer.parseInt(timeSC[i-1])-1)%10;
 						}else{
@@ -586,7 +586,7 @@ public class SC{
 					}
 					res[i] = (Integer.parseInt(timeSC[i])+1)%12;
 				}else if(i == 2){//R
-					if(Integer.parseInt(timeSC[i]) < countTime.JQ(Integer.parseInt(timeSC[0]),Integer.parseInt(timeSC[1]))){
+					if(Integer.parseInt(timeSC[i]) < countTime.JQ(Integer.parseInt(timeSC[0]),Integer.parseInt(timeSC[1]))[0]){
 						res[i-1] = (Integer.parseInt(timeSC[i-1]))%12;
 						if(Integer.parseInt(timeSC[i-1]) == 2){
 							res[i-2] = (res[i-2]+11)%12;
