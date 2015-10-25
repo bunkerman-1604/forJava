@@ -1,4 +1,4 @@
-package backage;
+package forApp;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -54,60 +54,102 @@ public class countTime{
 			System.exit(0);
 		}
     }
-    public int getDiff() {
-    	int		res = 0;
+    public int getDiff(){
+    	int	res = 0;
     	for (int i = 0;i<1+this.temp[0]-this.temp[1];i++)//所有整年的总天数天数
         {
             if((this.temp[1]+i)%100 == 0){
             	if((this.temp[1]+i)%400 == 0){
-            		res = RN(i,this.temp[0],this.temp[1],this.temp[2],this.temp[3],this.temp[4],this.temp[5],res);
+            		res = yearDays(true, i, this.temp, res);
             	}else{
-            		res = FRN(i,this.temp[0],this.temp[1],this.temp[2],this.temp[3],this.temp[4],this.temp[5],res);
+            		res = yearDays(false, i, this.temp, res);
             	}
             }else{
             	if((this.temp[1]+i)%4 == 0){
-            		res = RN(i,this.temp[0],this.temp[1],this.temp[2],this.temp[3],this.temp[4],this.temp[5],res);
+            		res = yearDays(true, i, this.temp, res);
             	}else{
-            		res = FRN(i,this.temp[0],this.temp[1],this.temp[2],this.temp[3],this.temp[4],this.temp[5],res);
+            		res = yearDays(false, i, this.temp, res);
             	}
             }
         }
 		return Math.abs(res);
     }
-	private int RN(int i,int temp1, int temp2, int temp3, int temp4, int temp5,
-			int temp6,int res) {
-		res = res + 366;
-    	if(i == 0){//去除firstYeard多的
-    		for(int j = 0;j < temp4-1;j++){
-    			res = res - ry[j];
-    		}
-    		res = res - temp6;
+    public String getDate(int delta){
+    	int		tmp1 = 0, tmp2 = delta;
+    	int[]	tmp = new int[this.temp.length],monthDay;
+    	for (int j = 0;j < tmp.length/2;j++){
+    		tmp[2*j]	= this.temp[2*j];
+    		tmp[2*j+1]	= this.temp[2*j];
     	}
-    	if(temp2+i == temp1){//去除lastYear多的
-        	for(int j = temp3-1;j < 12;j++){
-        		res = res - ry[j];
+    	while(tmp2 != 0) {
+    		if((tmp[1])%100 == 0){
+            	if((tmp[1])%400 == 0){
+            		monthDay = ry;
+            	}else{
+            		monthDay = fry;
+            	}
+            }else{
+            	if((tmp[1])%4 == 0){
+            		monthDay = ry;
+            	}else{
+            		monthDay = fry;
+            	}
+            }
+    		if (tmp2 > 0){
+    			if (tmp[5]+tmp2 <= monthDay[tmp[3]-1]){
+    				return tmp[1]+"-"+tmp[3]+"-"+(tmp[5]+tmp2-1);//why '-1'
+    			}else{
+    				if (tmp1++ == 0){
+    					tmp2 = tmp2 - monthDay[tmp[3]-1] + tmp[5];
+    					tmp[5] = 1;
+    				}else{
+    					tmp2 = tmp2 - monthDay[tmp[3]-1];
+    				}
+    				if(++tmp[3] > 12){
+    					tmp[1]++;tmp[3] = 1;
+    				}
+    			}
+    		}else{
+    			if (tmp[5]+tmp2 >= 1){
+    				return tmp[1]+"-"+tmp[3]+"-"+(tmp[5]+tmp2);
+    			}else{
+    				if (tmp1++ == 0){
+    					tmp2 = tmp2 + tmp[5];
+    				}else{
+    					tmp2 = tmp2 + monthDay[tmp[3]-1];
+    				}
+    				if(--tmp[3] < 1){
+    					tmp[1]--;tmp[3] = 12;
+    				}
+    				tmp[5] = monthDay[tmp[3]-1];
+    			}
+    		}
+    	}
+		return tmp[1]+"-"+tmp[3]+"-"+tmp[5];
+    }
+    private int yearDays(boolean type,int i,int[] temp,int res){
+    	int[]	monthDays;
+    	if (type == true){
+    		res	= res + 366;
+    		monthDays	= ry;
+    	}else{
+    		res	= res + 365;
+    		monthDays	= fry;
+    	}
+    	if(i == 0){//去除firstYeard多的
+    		for(int j = 0;j < temp[3]-1;j++){
+    			res = res - monthDays[j];
+    		}
+    		res = res - temp[5];
+    	}
+    	if(temp[1]+i == temp[0]){//去除lastYear多的
+        	for(int j = temp[2]-1;j < 12;j++){
+        		res = res - monthDays[j];
         	}
-        	res = res + temp5;
+        	res = res + temp[4];
         }
 		return res;
-	}
-	private int FRN(int i,int temp1, int temp2, int temp3, int temp4, int temp5,
-			int temp6,int res) {
-		res = res + 365;
-    	if(i == 0){//去除firstYeard多的
-    		for(int j = 0;j < temp4-1;j++){
-    			res = res - fry[j];
-    		}
-    		res = res - temp6;
-    	}
-    	if(temp2+i == temp1){//去除lastYear多的
-        	for(int j = temp3-1;j < 12;j++){
-        		res = res - fry[j];
-        	}
-        	res = res + temp5;
-        }
-		return res;
-	}
+    }
 	public static int[] JQ(int parseInt, int i) {
 		int			Y	= parseInt%100;
 		int[]		JQDay 	= {0,0};
@@ -117,7 +159,7 @@ public class countTime{
 				{3.87,18.74,5.63,20.646,4.81,20.100,5.520,21.04,5.678,21.37,7.108,22.83,7.50,23.13,7.646,23.042,8.318,23.438,7.438,22.36,7.18,21.94,5.4055,20.12},
 				{4.15,18.73,5.63,20.646,5.59,20.888,6.318,21.86,6.500,22.20,7.928,23.65,8.35,23.95,8.440,23.822,9.098,24.218,8.218,23.08,7.90,22.60,6.1100,20.84}
 				};
-		if (parseInt/100 >= 19){
+		if (parseInt/100 >= 19){//20th,21th,22th
 			if(i == 1 || i == 2){
 				if(Y == 0){
 					JQDay[0]	= (int) (Y*D+Ce[parseInt/100-19][(i*2+20)%24]);
@@ -130,7 +172,7 @@ public class countTime{
 				JQDay[0]	= (int) (Y*D+Ce[parseInt/100-19][(i*2+20)%24]-Y/4);
 				JQDay[1]	= (int) (Y*D+Ce[parseInt/100-19][(i*2+21)%24]-Y/4);
 			}
-		}else{
+		}else{//not in above 
 			if(i == 1 || i == 2){
 				if(Y == 0){
 					JQDay[0]	= (int) (Y*D+Ce[1][(i*2+20)%24]);
