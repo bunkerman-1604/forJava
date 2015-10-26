@@ -1,4 +1,4 @@
-package bager;
+package backage;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -53,26 +53,6 @@ public class SC{
 		}
 		return res;
 	}
-	public String DYun(SC s1,int sex) {
-    	String pres = "大运流年情况:\r\n";
-		int[] tgdz = (int[]) s1.DYLN(sex%2).get(0);
-		String[] res = (String[]) s1.DYLN(sex%2).get(1);
-		int[] stg= s1.getTG();
-		int[] sdz= s1.getDZ();
-		int[] TG = new int[5];
-		int[] DZ = new int[5];
-		for(int i = 0;i < 4;i++){
-			TG[i] = stg[i];
-			DZ[i] = sdz[i];
-		}
-		for(int j = 0;j < res.length;j++){
-			TG[4] = tgdz[2*j];
-			DZ[4] = tgdz[2*j+1];
-			SC sres = new SC(TG,DZ);
-			pres = pres + (j+1)*10+"---------"+res[j]+":\r\n" + sres.DayYun() + sres.WXN();
-		}
-		return pres;
-	}
 	public String DayYun() {
 		String[] temp0 = getBZ();
 		String[] temp1 = tgch();
@@ -110,6 +90,43 @@ public class SC{
 		}
 		return res;
 	} 
+	public ArrayList<Object> DYLN(boolean sex, int round){
+		ArrayList<Object> res = new ArrayList<Object>();
+		int[] res0 = new int[16];
+		String[] res1 = new String[8];
+		if(! sex){//NV
+			if(this.tg[0]%2 == 0){
+				for(int i = 0;i < round;i++){
+					res0[2*i] = (this.tg[1]+1+i)%10;
+					res0[2*i+1] = (this.dz[1]+1+i)%12;
+					res1[i] =this.TG[res0[2*i]]+" "+this.DZ[res0[2*i+1]];
+				}
+			}else{
+				for(int i = 0;i < round;i++){
+					res0[2*i] = (this.tg[1]+9+(round/10)*10-i)%10;
+					res0[2*i+1] = (this.dz[1]+11+(round/12)*12-i)%12;
+					res1[i] =this.TG[res0[2*i]]+" "+this.DZ[res0[2*i+1]];
+				}
+			}
+		}else{
+			if(this.tg[0]%2 == 0){
+				for(int i = 0;i < round;i++){
+					res0[2*i] = (this.tg[1]+9+(round/10)*10-i)%10;
+					res0[2*i+1] = (this.dz[1]+11+(round/12)*12-i)%12;
+					res1[i] =this.TG[res0[2*i]]+" "+this.DZ[res0[2*i+1]];
+				}
+			}else{
+				for(int i = 0;i < round;i++){
+					res0[2*i] = (this.tg[1]+1+i)%10;
+					res0[2*i+1] = (this.dz[1]+1+i)%12;
+					res1[i] =this.TG[res0[2*i]]+" "+this.DZ[res0[2*i+1]];
+				}
+			}
+		}
+		res.add(res0);
+		res.add(res1);
+		return res;
+	}
 	public String WXN() {
 		WX wx = new WX(this);
 		String res = "十神状况:\r\n";
@@ -309,43 +326,6 @@ public class SC{
 			}
 		}
 		return res1.substring(2)+"-"+res2.substring(2)+"-"+res3.substring(2)+" ";
-	}
-	private ArrayList<Object> DYLN(int sex){
-		ArrayList<Object> res = new ArrayList<Object>();
-		int[] res0 = new int[16];
-		String[] res1 = new String[8];
-		if(sex == 0){//NV
-			if(this.tg[0]%2 == 0){
-				for(int i = 0;i < 8;i++){
-					res0[2*i] = (this.tg[1]+1+i)%10;
-					res0[2*i+1] = (this.dz[1]+1+i)%12;
-					res1[i] =this.TG[res0[2*i]]+" "+this.DZ[res0[2*i+1]];
-				}
-			}else{
-				for(int i = 0;i < 8;i++){
-					res0[2*i] = (this.tg[1]+9-i)%10;
-					res0[2*i+1] = (this.dz[1]+11-i)%12;
-					res1[i] =this.TG[res0[2*i]]+" "+this.DZ[res0[2*i+1]];
-				}
-			}
-		}else{
-			if(this.tg[0]%2 == 0){
-				for(int i = 0;i < 8;i++){
-					res0[2*i] = (this.tg[1]+9-i)%10;
-					res0[2*i+1] = (this.dz[1]+11-i)%12;
-					res1[i] =this.TG[res0[2*i]]+" "+this.DZ[res0[2*i+1]];
-				}
-			}else{
-				for(int i = 0;i < 8;i++){
-					res0[2*i] = (this.tg[1]+1+i)%10;
-					res0[2*i+1] = (this.dz[1]+1+i)%12;
-					res1[i] =this.TG[res0[2*i]]+" "+this.DZ[res0[2*i+1]];
-				}
-			}
-		}
-		res.add(res0);
-		res.add(res1);
-		return res;
 	}
 	private String liu(int[] dz2) {
 		String res1 = "he";
