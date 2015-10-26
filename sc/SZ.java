@@ -1,6 +1,9 @@
-package com.HW;
+package com.example.myapp;
 
 import java.io.IOException;
+
+import backage.SC;
+import backage.bag;
 
 import android.app.Activity;
 import android.graphics.Typeface;
@@ -19,7 +22,7 @@ public class SZ extends Activity {
 	RadioButton	Nan,Nv;
 	EditText	datatime1,tg,dz;
 	TextView	ppres;
-	int			NN = 1;
+	boolean		NN = true;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sc);
@@ -35,8 +38,9 @@ public class SZ extends Activity {
 		this.Nv			= (RadioButton)findViewById(R.id.SexNv);
 		scBytime.setOnClickListener(new OnClickListener(){
 			public void onClick(View arg0) {
-				SC tmp1	= new SC(datatime1.getText().toString().replaceAll("\\D", "-")); 
-				ppres.setText(MainActivity.DayYun(tmp1)+MainActivity.WXN(tmp1)+MainActivity.DYun(tmp1, NN));
+				SC tmp1	= new backage.SC(datatime1.getText().toString().replaceAll("\\D", "-")); 
+//				ppres.setText(MainActivity.DayYun(tmp1)+MainActivity.WXN(tmp1)+MainActivity.DYun(tmp1, NN));
+				ppres.setText(tmp1.DayYun()+tmp1.WXN()+bag.DYun(tmp1, NN));
 				Front();
 			}
         });
@@ -53,7 +57,8 @@ public class SZ extends Activity {
 						DZ[i] = Integer.parseInt(tmp2[i]);
 					}
 					SC temp = new SC(TG,DZ);
-					ppres.setText(MainActivity.DayYun(temp)+MainActivity.WXN(temp)+MainActivity.DYun(temp, NN));
+//					ppres.setText(MainActivity.DayYun(temp)+MainActivity.WXN(temp)+MainActivity.DYun(temp, NN));
+					ppres.setText(temp.DayYun()+temp.WXN()+bag.DYun(temp, NN));
 					Front();
 				}
 			}
@@ -73,9 +78,9 @@ public class SZ extends Activity {
 			@Override
 			public void onCheckedChanged(RadioGroup arg0, int arg1) {
 				if(arg1 == Nan.getId()){
-					NN = 1;
+					NN = true;
 				}else{
-					NN = 0;
+					NN = false;
 				}
 			}
         });
