@@ -1,0 +1,56 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity" >
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+        
+        <EditText
+	        android:id="@+id/threenums"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:hint="@null"
+	        android:text="@string/threenums" />
+	
+	    <Button
+	        android:id="@+id/threeNum"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/threeNum" />
+	
+	    <Button
+	        android:id="@+id/Random"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/Random" />
+	    
+	    <Button
+	        android:id="@+id/WTD"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/WTD" />
+	    
+	     <Button
+	        android:id="@+id/save"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/save" />
+	
+        <TextView
+            android:id="@+id/ppres"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ppres" />
+        
+    </LinearLayout>
+
+</ScrollView>

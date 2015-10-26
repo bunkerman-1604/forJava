@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">WodeZone</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="PP">PP</string>
+    <string name="SC">SC</string>
+    <string name="CountDays">CountDays</string>
+    <string name="WTD">WTD</string>
+    <string name="Random">Random</string>
+    <string name="threenums">1#2#3</string>
+    <string name="threeNum">Do</string>
+    <string name="scbytime">SCByTime</string>
+    <string name="scbytgdz">HB</string>
+    <string name="Count">Count</string>
+    <string name="countdaysResult">Result</string>
+    <string name="ppres">To Be Continue</string>
+    <string name="SexNan">Male</string>
+    <string name="SexNv">Female</string>
+    <string name="date1">D1</string>
+    <string name="date2">D2</string>
+    <string name="datetime1">Y-M-D-H</string>
+    <string name="save">Save</string>
+    <string name="DG">3D-OpenGL</string>
+    <string name="getDate">getDate</string>
+    <string name="startDate">startDate</string>
+    <string name="round">round</string>
+    
+</resources>

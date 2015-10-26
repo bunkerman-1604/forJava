@@ -1,0 +1,47 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".BaseInfo" >
+
+     <EditText
+	    android:id="@+id/date1"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:digits="1234567890-#"
+	    android:hint="@null"
+	    android:text="@string/date1" />
+    
+    <EditText
+	    android:id="@+id/date2"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:digits="1234567890-#"
+	    android:hint="@null"
+	    android:text="@string/date2" />
+    
+    <Button
+	    android:id="@+id/Count"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:text="@string/Count" />
+    
+    <Button
+	    android:id="@+id/getDate"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:text="@string/getDate" />
+    
+    <TextView
+        android:id="@+id/countdaysResult"
+        android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:text="@string/countdaysResult" />
+        
+</LinearLayout>

@@ -1,0 +1,82 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ScrollView1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fadingEdge="vertical"
+    tools:context=".MainActivity" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+        
+        <RadioGroup
+            android:id="@+id/RadioGroup01"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RadioButton
+                android:id="@+id/SexNan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/SexNan" />
+
+            <RadioButton
+                android:id="@+id/SexNv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/SexNv" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/datetime1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:digits="1234567890-#"
+            android:hint="@null"
+            android:text="@string/datetime1" />
+
+        <Button
+            android:id="@+id/scbytime"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/scbytime" />
+
+        <EditText
+            android:id="@+id/startDate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:digits="1234567890-#"
+            android:hint="@null"
+            android:text="@string/startDate" />
+
+        <EditText
+            android:id="@+id/round"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:digits="1234567890-#"
+            android:hint="@null"
+            android:text="@string/round" />
+
+        <Button
+            android:id="@+id/scbytgdz"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/scbytgdz" />
+        
+        <Button
+	        android:id="@+id/save"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/save" />
+        
+        <TextView
+            android:id="@+id/ppres"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ppres" />
+    </LinearLayout>
+
+</ScrollView>

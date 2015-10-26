@@ -1,4 +1,4 @@
-package mybackage;
+package forAPP;
 
 public class WWG{
 	private BG[] a;

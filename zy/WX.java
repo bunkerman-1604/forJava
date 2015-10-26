@@ -1,4 +1,4 @@
-package mybackage;
+package forAPP;
 
 public class WX{
 	private int[] tg,dz,bd;

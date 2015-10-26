@@ -1,4 +1,4 @@
-package backage;
+package forAPP;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -92,16 +92,55 @@ public class SC{
 	} 
 	public ArrayList<Object> DYLN(boolean sex, int round){
 		ArrayList<Object> res = new ArrayList<Object>();
-		int[] res0 = new int[2*round];
-		String[] res1 = new String[round];
+		int[]		ress = new int[13];
+		int[]		res0 = new int[round*2];
+		String[]	res1 = new String[round],sc;
+		if (this.SC != null){
+			sc = this.SC.split("\\D");
+			ress[0] = ress[3] = ress[6] = ress[9] = Integer.parseInt(sc[0]);
+			ress[1] = ress[4] = ress[7] = ress[10]= Integer.parseInt(sc[1]);
+			ress[2] = ress[5] = ress[8] = ress[11]= Integer.parseInt(sc[2]);
+			ress[1] = (ress[4]+11)%12;
+			ress[7] = (ress[4]+13)%12;
+			if (ress[1] == 0){
+				ress[0]--;
+				ress[1] = 12;
+			}
+			if (ress[7] == 1 ){
+				ress[6]++;
+			}else if (ress[7] == 0){
+				ress[7] = 12;
+			}
+			ress[2] = countTime.JQ(ress[0], ress[1])[0];
+			ress[8] = countTime.JQ(ress[6], ress[7])[0];
+			ress[11]= countTime.JQ(ress[9], ress[10])[0]; 
+		}else{
+			for (int i = 0;i < ress.length;i++){
+				if (i%3 == 0){
+					ress[i] = 1001;
+				}else{
+					ress[i] =  1;
+				}
+			}
+		}
 		if(! sex){//NV
 			if(this.tg[0]%2 == 0){
+				if (ress[5] <= ress[11]){
+					ress[12] = new countTime(ress[3]+"-"+ress[4]+"-"+ress[5],ress[9]+"-"+ress[10]+"-"+ress[11]).getDiff();
+				}else {
+					ress[12] = new countTime(ress[3]+"-"+ress[4]+"-"+ress[5],ress[6]+"-"+ress[7]+"-"+ress[8]).getDiff();
+				}
 				for(int i = 0;i < round;i++){
 					res0[2*i] = (this.tg[1]+1+i)%10;
 					res0[2*i+1] = (this.dz[1]+1+i)%12;
 					res1[i] =this.TG[res0[2*i]]+" "+this.DZ[res0[2*i+1]];
 				}
 			}else{
+				if (ress[5] <= ress[11]){
+					ress[12] = new countTime(ress[3]+"-"+ress[4]+"-"+ress[5],ress[0]+"-"+ress[1]+"-"+ress[2]).getDiff();
+				}else {
+					ress[12] = new countTime(ress[3]+"-"+ress[4]+"-"+ress[5],ress[9]+"-"+ress[10]+"-"+ress[11]).getDiff();
+				}
 				for(int i = 0;i < round;i++){
 					res0[2*i] = (this.tg[1]+9+(round/10)*10-i)%10;
 					res0[2*i+1] = (this.dz[1]+11+(round/12)*12-i)%12;
@@ -110,12 +149,22 @@ public class SC{
 			}
 		}else{
 			if(this.tg[0]%2 == 0){
+				if (ress[5] <= ress[11]){
+					ress[12] = new countTime(ress[3]+"-"+ress[4]+"-"+ress[5],ress[0]+"-"+ress[1]+"-"+ress[2]).getDiff();
+				}else {
+					ress[12] = new countTime(ress[3]+"-"+ress[4]+"-"+ress[5],ress[9]+"-"+ress[10]+"-"+ress[11]).getDiff();
+				}
 				for(int i = 0;i < round;i++){
 					res0[2*i] = (this.tg[1]+9+(round/10)*10-i)%10;
 					res0[2*i+1] = (this.dz[1]+11+(round/12)*12-i)%12;
 					res1[i] =this.TG[res0[2*i]]+" "+this.DZ[res0[2*i+1]];
 				}
 			}else{
+				if (ress[5] <= ress[11]){
+					ress[12] = new countTime(ress[3]+"-"+ress[4]+"-"+ress[5],ress[9]+"-"+ress[10]+"-"+ress[11]).getDiff();
+				}else {
+					ress[12] = new countTime(ress[3]+"-"+ress[4]+"-"+ress[5],ress[6]+"-"+ress[7]+"-"+ress[8]).getDiff();
+				}
 				for(int i = 0;i < round;i++){
 					res0[2*i] = (this.tg[1]+1+i)%10;
 					res0[2*i+1] = (this.dz[1]+1+i)%12;
@@ -123,8 +172,21 @@ public class SC{
 				}
 			}
 		}
+		ress[9] = ress[9] + ress[12]/3;
+		ress[10]= (ress[10]+ (ress[12]%3)*4)%12;
+		if (ress[10] < ress[4]){
+			if (ress[10] == 0) {
+				ress[10] = 12;
+			}else{
+				ress[9]++;
+			}
+		}
+		ress[11]= countTime.JQ(ress[9], ress[10])[0];
 		res.add(res0);
 		res.add(res1);
+		if (this.SC != null){
+			res.add(ress);
+		}
 		return res;
 	}
 	public String WXN() {

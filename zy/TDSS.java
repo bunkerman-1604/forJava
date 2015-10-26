@@ -1,4 +1,4 @@
-package mybackage;
+package forAPP;
 
 public class TDSS{
 	private int[] tg,dz;

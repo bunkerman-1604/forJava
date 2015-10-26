@@ -1,4 +1,4 @@
-package mybackage;
+package forAPP;
 
 public class Gong{
 	private int GClass,GS;//0-归；7-游；6-本
