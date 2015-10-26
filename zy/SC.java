@@ -92,8 +92,8 @@ public class SC{
 	} 
 	public ArrayList<Object> DYLN(boolean sex, int round){
 		ArrayList<Object> res = new ArrayList<Object>();
-		int[] res0 = new int[16];
-		String[] res1 = new String[8];
+		int[] res0 = new int[2*round];
+		String[] res1 = new String[round];
 		if(! sex){//NV
 			if(this.tg[0]%2 == 0){
 				for(int i = 0;i < round;i++){
