@@ -1,6 +1,7 @@
-package mybackage;
+package backage;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 public class bag {
 	private	WWG	tar;
@@ -109,5 +110,25 @@ public class bag {
 		}
 		return pres;
 	}
-	
+	public static String DYun(SC s1, boolean sex) {
+    	String	pres = "大运流年情况:\r\n";
+    	ArrayList<?> tmp = s1.DYLN(sex, 8);
+		int[]	tgdz = (int[]) tmp.get(0);
+		String[] res = (String[]) tmp.get(1);
+		int[] stg= s1.getTG();
+		int[] sdz= s1.getDZ();
+		int[] TG = new int[5];
+		int[] DZ = new int[5];
+		for(int i = 0;i < 4;i++){
+			TG[i] = stg[i];
+			DZ[i] = sdz[i];
+		}
+		for(int j = 0;j < res.length;j++){
+			TG[4] = tgdz[2*j];
+			DZ[4] = tgdz[2*j+1];
+			SC sres = new SC(TG,DZ);
+			pres = pres + (j+1)*10+"---------"+res[j]+":\r\n" + sres.DayYun() + sres.WXN();
+		}
+		return pres;
+	}
 }
