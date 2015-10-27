@@ -374,17 +374,17 @@ public class SC{
 			if(temp1[i] != null){
 				res1 = res1+" "+this.TG[Integer.parseInt(temp1[i])];
 			}else{
-				res1 = res1+" ○";
+				res1 = res1+" 丶";
 			}
 			if(temp2[i] != null){
 				res2 = res2+" "+this.TG[Integer.parseInt(temp2[i])];
 			}else{
-				res2 = res2+" ○";
+				res2 = res2+" 丶";
 			}
 			if(temp3[i] != null){
 				res3 = res3+" "+this.TG[Integer.parseInt(temp3[i])];
 			}else{
-				res3 = res3+" ○";
+				res3 = res3+" 丶";
 			}
 		}
 		return res1.substring(2)+"-"+res2.substring(2)+"-"+res3.substring(2)+" ";
