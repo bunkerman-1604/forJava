@@ -90,8 +90,23 @@ public class PP extends Activity {
         });
 		WTD.setOnClickListener(new OnClickListener(){
 			public void onClick(View arg0) {
-				SC tmp1 = bag.HB("1989-4-15-9",BaseInfo.sdf.format(new java.util.Date()), 0);	
-				txt1.setText(tmp1.DayYun()+tmp1.WXN());
+				int[]	div = {2,4};//count of date and count of 'year/month/day/hour'(3 or 4)
+				SC[]	date = new SC[3];
+				int[][]	tmp  = new int[6][2*div[1]];
+				date[0] = new SC("1989-4-15-9");
+				date[1] = new SC(BaseInfo.sdf.format(new java.util.Date()));
+				for (int i = 0;i < div[0];i++){
+					tmp[2*i]   = date[i].getTG();
+					tmp[2*i+1] = date[i].getDZ();
+				}
+				for (int i = 0;i < div[1];i++){
+					tmp[4][i] = tmp[0][i];
+					tmp[5][i] = tmp[1][i];
+					tmp[4][div[1] + i] = tmp[2][i];
+					tmp[5][div[1] + i] = tmp[3][i];
+				}
+				date[2] = new SC(tmp[4],tmp[5]);
+				txt1.setText(date[2].DayYun()+date[2].WXN());
 				Front();
 			}
         });
