@@ -23,38 +23,6 @@ public class bag {
 		pres = pres + this.tmp1.WXN();
 		return pres;
 	}
-	public static SC HB(String dat1,String dat2,int n){
-		SC res;
-		int[] tg;
-		int[] dz;
-		if(n == 0){
-			tg = new int[8];
-			dz = new int[8];
-			SC tmp1 = new SC(dat1);
-			SC tmp2 = new SC(dat2);
-			for(int i = 0;i < 4;i++){
-				tg[i] = tmp1.getTG()[i];
-				tg[i+4] = tmp2.getTG()[i];
-				dz[i] = tmp1.getDZ()[i];
-				dz[i+4] = tmp2.getDZ()[i];
-			}
-		}else{
-			tg = new int[7];
-			dz = new int[7];
-			SC tmp1 = new SC(dat1);
-			SC tmp2 = new SC(dat2);
-			for(int i = 0;i < 4;i++){
-				tg[i] = tmp1.getTG()[i];
-				dz[i] = tmp1.getDZ()[i];
-				if(i < 3){
-					tg[i+4] = tmp2.getTG()[i];
-					dz[i+4] = tmp2.getDZ()[i];
-				}
-			}
-		}
-		res = new SC(tg,dz);
-		return res;
-	}
 	public static String[] TakeTwenty(String tar) {
 		String[] res = new String[tar.getBytes().length];
 		byte[] tmp	= tar.getBytes();
