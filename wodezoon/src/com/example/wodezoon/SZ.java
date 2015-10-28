@@ -14,6 +14,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import forAPP.SC;
 import forAPP.bag;
+import forAPP.countTime;
 
 public class SZ extends Activity {
 	Button		scBytime,HB,save;
@@ -38,7 +39,7 @@ public class SZ extends Activity {
 		scBytime.setOnClickListener(new OnClickListener(){
 			public void onClick(View arg0) {
 				SC tmp1	= new SC(et[0].getText().toString().replaceAll("\\D", "-")); 
-				ppres.setText(tmp1.DayYun()+tmp1.WXN()+"大运情况:\r\n"+bag.DYun(tmp1, NN));
+				ppres.setText(new countTime(et[0].getText().toString()).getYL()+"\r\n"+tmp1.DayYun()+tmp1.WXN()+"大运情况:\r\n"+bag.DYun(tmp1, NN));
 				Front();
 			}
         });

@@ -16,7 +16,7 @@ public class bag {
 		this.tmp1 = new SC(this.logtime);
 	}
 	public String getExpression(){
-		String pres =  "记录时间:" + this.logtime + "\r\n";
+		String pres =  "记录时间:" + this.logtime + new countTime(this.logtime).getYL() +"\r\n";
 		pres = pres + this.tar.getExpression();
 		pres = pres + NJGONG(this.tar);
 		pres = pres + this.tmp1.DayYun() ;

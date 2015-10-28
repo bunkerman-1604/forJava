@@ -40,7 +40,7 @@ public class openCountDays extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				String tmp1,tmp2;
+				String tmp1,tmp2,tmp3;
 				Matcher m1 = p1.matcher(D1.getText().toString().replaceAll("\\D", "-"));
 				Matcher m2 = p1.matcher(D2.getText().toString().replaceAll("\\D", "-"));
 				Matcher m3 = p2.matcher(D1.getText().toString().replaceAll("\\D", "-"));
@@ -57,7 +57,8 @@ public class openCountDays extends Activity {
 					}else{
 						tmp2 = m4.group();
 					}
-					countRes.setText(new countTime(tmp2).getDate(Integer.parseInt(tmp1)));
+					tmp3 = new countTime(tmp2).getDate(Integer.parseInt(tmp1));
+					countRes.setText(tmp3 + new countTime(tmp3).getYL());
 				}
 			}
 		});
