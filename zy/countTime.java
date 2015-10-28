@@ -10,7 +10,7 @@ public class countTime{
     private static int[]	ry	= {31,29,31,30,31,30,31,31,30,31,30,31};
     private static int[]	fry	= {31,28,31,30,31,30,31,31,30,31,30,31};
     private	int[]	temp;
-    private Pattern p = Pattern.compile("\\d{4}(\\D\\d{1,2}){2,3}$");
+    private Pattern	p = Pattern.compile("\\d{4}(\\D\\d{1,2}){2,3}$");
     public countTime(String d1,String d2){
     	String[]	tmp1,tmp2;
 		Matcher m1 = p.matcher(d1);
@@ -126,6 +126,64 @@ public class countTime{
     		}
     	}
 		return tmp[1]+"-"+tmp[3]+"-"+tmp[5];
+    }
+    public String getYL(){
+    	int[]		mon = new int[12];
+    	String[]	res = {"", "1900-1-1", this.temp[0]+"-"+this.temp[2]+"-"+this.temp[4], "", ""};
+    	String[][]	mName = {
+    			{"正月","二月","三月","四月","五月","六月","七月","八月","九月","十月","冬月","腊月"},
+    			{"初一","初二","初三","初四","初五","初六","初七","初八","初九","初十",
+    			 "十一","十二","十三","十四","十五","十六","十七","十八","十九","二十",
+    			 "廿一","廿二","廿三","廿四","廿五","廿六","廿七","廿八","廿九","三十",}}; 
+    	if (this.temp[0] > 1900){
+    		mon[0] = (int) ((new countTime(res[1], res[2]).getDiff()+0.4799)/29.530);//获得阴历的阴历月总数
+    		mon[1] = (int) ((new countTime(res[1], res[2]).getDiff()+0.4799)%29.530);//获得阴历的日子
+    		if (mon[1] == 0){
+    			mon[0]--;
+    			mon[1] = 1 + (int) ((new countTime(new countTime(res[2]).getDate(-1), res[1]).getDiff()+0.4799)%29.530);
+    		}
+    		res[3] = new countTime(res[1]).getDate((int) (29.530*mon[0] + 2));//获得阴历当月的第一天
+    		res[4] = new countTime(res[1]).getDate((int) (29.530*(mon[0] + 1)));//获得阴历当月的最后一天
+    		if (this.temp[2] == 1){
+    			mon[2] = new countTime((this.temp[0]-1)+"-12-"+JQ(this.temp[0]-1, 12)[1]).getDiff();
+    			mon[4] = new countTime(this.temp[0]+"-2-"+JQ(this.temp[0], 2)[1]).getDiff();
+    			mon[7] = this.temp[0]-1;
+    			mon[8] = 12;
+    			mon[9] = this.temp[0];
+    			mon[10]= 2;
+    		}else if (this.temp[2] == 12){
+    			mon[2] = new countTime(this.temp[0]+"-11-"+JQ(this.temp[0], 11)).getDiff();
+    			mon[4] = new countTime((this.temp[0]+1)+"-1-"+JQ(this.temp[0]+1, 1)).getDiff();
+    			mon[7] = this.temp[0];
+    			mon[8] = 11;
+    			mon[9] = this.temp[0] + 1;
+    			mon[10]= 1;
+    		}else{
+    			mon[2] = new countTime(this.temp[0]+"-"+(this.temp[2]-1)+"-"+JQ(this.temp[0], this.temp[2] - 1)[1]).getDiff();//获得上月的中气
+    			mon[4] = new countTime(this.temp[0]+"-"+(this.temp[2]+1)+"-"+JQ(this.temp[0], this.temp[2] + 1)[1]).getDiff();//获得下月的中气
+    			mon[7] = this.temp[0];
+    			mon[8] = this.temp[2] - 1;
+    			mon[9] = this.temp[0];
+    			mon[10]= this.temp[2] + 1;
+    		}
+    		mon[3] = new countTime(this.temp[0]+"-"+this.temp[2]+"-"+JQ(this.temp[0], this.temp[2])[1]).getDiff();//获得当月的中气
+    		mon[5] = new countTime(res[3]).getDiff();
+    		mon[6] = new countTime(res[4]).getDiff();
+    		if (mon[5] <= mon[2] && mon[6] < mon[3]){
+    			res[0] = mName[0][(mon[8]+10)%12]+mName[1][mon[1]-1];
+    		}else if (mon[5] > mon[2] && mon[6] < mon[3]){
+    			res[0] = "润"+mName[0][(mon[8]+10)%12]+mName[1][mon[1]-1];
+    		}else if (mon[5] <= mon[3] && mon[6] < mon[4]){
+    			res[0] = mName[0][(this.temp[2]+10)%12]+mName[1][mon[1]-1];
+    		}else if (mon[5] > mon[3] && mon[6] < mon[4]){
+    			res[0] = "润"+mName[0][(this.temp[2]+10)%12]+mName[1][mon[1]-1];
+    		}else if (mon[5] <= mon[4] && mon[4] < mon[6]){
+    			res[0] = mName[0][(mon[10]+10)%12]+mName[1][mon[1]-1];
+    		}
+    	}else{
+    		return "输入年份必须在1901年以后！";
+    	}
+		return res[0];
     }
     private int yearDays(boolean type,int i,int[] temp,int res){
     	int[]	monthDays;
