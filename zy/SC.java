@@ -94,7 +94,7 @@ public class SC{
 		ArrayList<Object> res = new ArrayList<Object>();
 		int[]		ress = new int[13];
 		int[]		res0 = new int[round*2];
-		String[]	res1 = new String[round],sc;
+		String[]	res1 = new String[round], cycleDate = null, sc = null;
 		if (this.SC != null){
 			sc = this.SC.split("\\D");
 			ress[0] = ress[3] = ress[6] = ress[9] = Integer.parseInt(sc[0]);
@@ -172,16 +172,14 @@ public class SC{
 				}
 			}
 		}
-		ress[9] = ress[9] + ress[12]/3;
-		ress[10]= (ress[10]+ (ress[12]%3)*4)%12;
-		if (ress[10] < ress[4]){
-			if (ress[10] == 0) {
-				ress[10] = 12;
-			}else{
-				ress[9]++;
-			}
+		if (4 == sc.length){
+			cycleDate = new countTime(ress[3]+"-"+ress[4]+"-"+ress[5]).getDate((int) ((ress[12]/3)*365+(ress[12]%3+(float)Integer.parseInt(sc[3])/24)*365/3)).split("\\D");
+		}else if (3 == sc.length){
+			cycleDate = new countTime(ress[3]+"-"+ress[4]+"-"+ress[5]).getDate((ress[12]/3)*365+(ress[12]%3)*365/3).split("\\D");
 		}
-		ress[11]= countTime.JQ(ress[9], ress[10])[0];
+		ress[9] = Integer.parseInt(cycleDate[0]);
+		ress[10]= Integer.parseInt(cycleDate[1]);
+		ress[11]= Integer.parseInt(cycleDate[2]);
 		res.add(res0);
 		res.add(res1);
 		if (this.SC != null){
