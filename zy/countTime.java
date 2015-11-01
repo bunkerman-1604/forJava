@@ -235,8 +235,8 @@ public class countTime{
 		res[4] = res[0].split("\\D")[1];
 		res[5] = res[1].split("\\D")[1];
 		for (int j = 0;j < 2;j++){
-			if (res[3+j*2].length() > 2){
-				res[3+j*2] = res[3+j].substring(0,2);
+			if (res[4+j].length() > 2){
+				res[4+j] = res[4+j].substring(0,2);
 			}
 		}
 		for (int j = 0;j < JQDay.length;j++){
