@@ -97,10 +97,10 @@ public class countTime{
             }
     		if (tmp2 > 0){
     			if (tmp[5]+tmp2 <= monthDay[tmp[3]-1]){
-    				return tmp[1]+"-"+tmp[3]+"-"+(tmp[5]+tmp2-1);//why '-1'
+    				return tmp[1]+"-"+tmp[3]+"-"+(tmp[5]+tmp2);
     			}else{
     				if (tmp1++ == 0){
-    					tmp2 = tmp2 - monthDay[tmp[3]-1] + tmp[5];
+    					tmp2 = tmp2 - monthDay[tmp[3]-1] + tmp[5] - 1;
     					tmp[5] = 1;
     				}else{
     					tmp2 = tmp2 - monthDay[tmp[3]-1];
@@ -210,39 +210,37 @@ public class countTime{
     }
 	public static int[] JQ(int parseInt, int i) {
 		int			Y	= parseInt%100;
-		int[]		JQDay 	= {0,0};
+		int[]		JQDay 	= {0,0,0,0};
 		double		D	= 0.2422;
+		String[]	res = new String[6];
 		double[][]	Ce	= {
 				{4.63,19.46,6.38,21.416,5.59,20.888,6.318,21.86,6.500,22.20,7.928,23.65,8.35,23.95,8.440,23.822,9.098,24.218,8.218,23.08,7.90,22.60,6.1100,20.84},
 				{3.87,18.74,5.63,20.646,4.81,20.100,5.520,21.04,5.678,21.37,7.108,22.83,7.50,23.13,7.646,23.042,8.318,23.438,7.438,22.36,7.18,21.94,5.4055,20.12},
 				{4.15,18.73,5.63,20.646,5.59,20.888,6.318,21.86,6.500,22.20,7.928,23.65,8.35,23.95,8.440,23.822,9.098,24.218,8.218,23.08,7.90,22.60,6.1100,20.84}
 				};
-		if (parseInt/100 >= 19 && parseInt/100 <= 21){//20th,21th,22th
-			if(i == 1 || i == 2){
-				if(Y == 0){
-					JQDay[0]	= (int) (Y*D+Ce[parseInt/100-19][(i*2+20)%24]);
-					JQDay[1]	= (int) (Y*D+Ce[parseInt/100-19][(i*2+21)%24]);
-				}else{
-					JQDay[0]	= (int) (Y*D+Ce[parseInt/100-19][(i*2+20)%24]-(Y-1)/4);
-					JQDay[1]	= (int) (Y*D+Ce[parseInt/100-19][(i*2+21)%24]-(Y-1)/4);
-				}
+		if(i == 1 || i == 2){
+			if(Y == 0){
+				res[0] = ""+Y*D+Ce[Math.abs(parseInt/100-19)%3][(i*2+20)%24];
+				res[1] = ""+Y*D+Ce[Math.abs(parseInt/100-19)%3][(i*2+21)%24];
 			}else{
-				JQDay[0]	= (int) (Y*D+Ce[parseInt/100-19][(i*2+20)%24]-Y/4);
-				JQDay[1]	= (int) (Y*D+Ce[parseInt/100-19][(i*2+21)%24]-Y/4);
+				res[0] = ""+(Y*D+Ce[Math.abs(parseInt/100-19)%3][(i*2+20)%24]-(Y-1)/4);
+				res[1] = ""+(Y*D+Ce[Math.abs(parseInt/100-19)%3][(i*2+21)%24]-(Y-1)/4);
 			}
-		}else{//not in above 
-			if(i == 1 || i == 2){
-				if(Y == 0){
-					JQDay[0]	= (int) (Y*D+Ce[1][(i*2+20)%24]);
-					JQDay[1]	= (int) (Y*D+Ce[1][(i*2+21)%24]);
-				}else{
-					JQDay[0]	= (int) (Y*D+Ce[1][(i*2+20)%24]-(Y-1)/4);
-					JQDay[1]	= (int) (Y*D+Ce[1][(i*2+21)%24]-(Y-1)/4);
-				}
-			}else{
-				JQDay[0]	= (int) (Y*D+Ce[1][(i*2+20)%24]-Y/4);
-				JQDay[1]	= (int) (Y*D+Ce[1][(i*2+21)%24]-Y/4);
+		}else{
+			res[0] = ""+(Y*D+Ce[Math.abs(parseInt/100-19)%3][(i*2+20)%24]-Y/4);
+			res[1] = ""+(Y*D+Ce[Math.abs(parseInt/100-19)%3][(i*2+21)%24]-Y/4);
+		}
+		res[2] = res[0].split("\\D")[0];
+		res[3] = res[1].split("\\D")[0];
+		res[4] = res[0].split("\\D")[1];
+		res[5] = res[1].split("\\D")[1];
+		for (int j = 0;j < 2;j++){
+			if (res[3+j*2].length() > 2){
+				res[3+j*2] = res[3+j].substring(0,2);
 			}
+		}
+		for (int j = 0;j < JQDay.length;j++){
+			JQDay[j] = Integer.parseInt(res[2+j]);
 		}
 		return JQDay;
 	}
