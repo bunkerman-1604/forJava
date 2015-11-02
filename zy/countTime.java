@@ -152,8 +152,8 @@ public class countTime{
     			mon[9] = this.temp[0];
     			mon[10]= 2;
     		}else if (this.temp[2] == 12){
-    			mon[2] = new countTime(this.temp[0]+"-11-"+JQ(this.temp[0], 11)).getDiff();
-    			mon[4] = new countTime((this.temp[0]+1)+"-1-"+JQ(this.temp[0]+1, 1)).getDiff();
+    			mon[2] = new countTime(this.temp[0]+"-11-"+JQ(this.temp[0], 11)[1]).getDiff();
+    			mon[4] = new countTime((this.temp[0]+1)+"-1-"+JQ(this.temp[0]+1, 1)[1]).getDiff();
     			mon[7] = this.temp[0];
     			mon[8] = 11;
     			mon[9] = this.temp[0] + 1;
