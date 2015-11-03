@@ -1,4 +1,4 @@
-package forAPP;
+package tempture;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -58,12 +58,17 @@ public class SC{
 		String[] temp1 = tgch();
 		String[] temp2 = dzch();
 		String[] temp3 = dzcg().split("-");
+		String[] temp4 = getSWSJ();
 		String	 res = "天干地支:\r\n";
 		for(int i = 0;i < temp0.length;i++){
 			if(i == 4){
 				res = res + "\r\n";
 			}
 			res = res + temp0[i].replaceAll(" ", "") +"  ";
+		}
+		res = res + "\r\n";
+		for (int i = 0;i < temp4.length;i++){
+			res = res + temp4[i] + "  ";
 		}
 		res = res+"\r\n天干冲合:\r\n";
 		for(int i = 0;i <temp1.length;i++){
@@ -77,7 +82,7 @@ public class SC{
 				res = res + temp2[i] +"  \r\n";
 			}
 		}
-		res = res+"干支冲合:\r\n"+gzch();
+		res = res+"干支冲合:\r\n"+gzch().replaceAll("[a-zA-Z]", " ")+"\r\n";
 		res = res+"地支藏干:\r\n";
 		if(temp3[0] != null){
 			res = res + "正气:"+temp3[0]+"\r\n";
@@ -211,6 +216,29 @@ public class SC{
 		}
 		res = res + "五行数量:\r\n";
 		res = res + wx.printWX();
+		return res;
+	}
+	public String[] getSWSJ(){
+		String[]	res = new String[this.dz.length];
+		String[]	tmp0 = {"长生","沐浴","冠带","临官","帝旺","丶衰","丶病","丶死","丶墓","丶绝","丶胎","丶养"};
+		int[][]	tmp1 = {
+				{0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11},
+				{7, 6, 5, 4, 3, 2, 1, 0,11,10, 9, 8},
+				{3, 4, 5, 6, 7, 8, 9,10,11, 0, 1, 2},
+				{10,9, 8, 7, 6, 5, 4, 3, 2, 1, 0,11},
+				{3, 4, 5, 6, 7, 8, 9,10,11, 0, 1, 2},
+				{10,9, 8, 7, 6, 5, 4, 3, 2, 1, 0,11},
+				{6, 7, 8, 9,10,11, 0, 1, 2, 3, 4, 5},
+				{1, 0,11,10, 9, 8, 7, 6, 5, 4, 3, 2},
+				{9,10,11, 0, 1, 2, 3, 4, 5, 6, 7, 8},
+				{4, 3, 2, 1, 0,11,10, 9, 8, 7, 6, 5}};
+		for (int j = 0;j < res.length;j++){
+			for (int i = 0;i < 12;i++){
+				if (this.dz[j] == tmp1[(this.tg[2] + 9) % 10][i]){
+					res[j] = tmp0[i];
+				}
+			}
+		}
 		return res;
 	}
 	private String[] tgch(){
