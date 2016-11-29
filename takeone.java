@@ -67,7 +67,8 @@ public class TakeOne {
 //		TakeEighteen();//显示鼠标的当前坐标值；
 //		TakeNighteen();//Socket/ServerSocket
 //		String[] tmp = TakeTwenty("侯瑞华");// 获取目标字符串的HEX码(16进制)
-		System.out.println(TakeTwentyOne(GET_URL, "d:\\httpdownload"));//http下载文件
+// 		System.out.println(TakeTwentyOne(GET_URL, "d:\\httpdownload"));//http下载文件
+		System.out.print(TakeTwentyTwo(""+tmp1.charAt(j)));//随机密码生成
 	}
 	@SuppressWarnings("deprecation")
 	public static void TakeZero() {
@@ -430,5 +431,26 @@ public class TakeOne {
 	           e.printStackTrace();  
 	           return false;  
 	       }
+	}
+	public static String TakeTwentyTwo(String x){
+		String[] sybl={"~","!","@","#","$","%","^","&","*","(",")","?",",",".","/","-"};
+		String reg1="\\d";
+		Pattern		p1	= Pattern.compile(reg1);
+		Matcher		m1	= p1.matcher(x);
+		int	randomSeed	= Math.abs(new Random().nextInt());
+		if (m1.find() == false){
+			if (randomSeed%3 == 0){
+				return x.toUpperCase();
+			}else{
+				return x;
+			}
+		}
+		else{
+			if (randomSeed%3 == 0){
+				return sybl[randomSeed%16];
+			}else{
+				return x;
+			}
+		}
 	}
 }
